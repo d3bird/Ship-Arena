@@ -32,7 +32,13 @@ ship::ship(int n, string na, int dim[3]){
 }
 
 ship::~ship() {
-
+	for (int f = 0; f < floors; f++) {
+		for (int y = 0; y < ywidth; y++) {
+			delete[] map[f][y];
+		}
+		delete[] map[f];
+	}
+	delete[] map;
 }
 
 //updates the ship stats after it takes damage
@@ -175,27 +181,39 @@ void ship::genMap() {
 
 void ship::genblankmap() {
 
-	map = new string *[ywidth];
+	map = new string **[floors];
+	
+	for (int f = 0; f < floors; f++) {
 
-	for (int i = 0; i < ywidth; i++) {
-		map[i] = new string[xwidth];
+		map[f] = new string *[ywidth]; // generating the rows
+
+		for (int i = 0; i < ywidth; i++) {// generating the collums
+			map[f][i] = new string[xwidth];
+		}
+
 	}
+	for (int f = 0; f < floors; f++) {
+		for (int y = 0; y < ywidth; y++) {
+			for (int x = 0; x < xwidth; x++) {
+				map[f][y][x] = ".";
 
-	for (int y = 0; y < ywidth; y++) {
-		for (int x = 0; x < xwidth; x++) {
-			map[y][x] =".";
-
+			}
 		}
 	}
 }
 
 void ship::printmap() {
-	for (int y = 0; y < ywidth; y++) {
-		for (int x = 0; x < xwidth; x++) {
-
-			cout << map[y][x];
-
-		}
+	for (int f = 0; f < floors; f++) {
 		cout << endl;
+		cout << "----------floor number: " << f << "-------------" << endl;
+		cout << endl;
+		for (int y = 0; y < ywidth; y++) {
+			for (int x = 0; x < xwidth; x++) {
+
+				cout << map[f][y][x];
+
+			}
+			cout << endl;
+		}
 	}
 }

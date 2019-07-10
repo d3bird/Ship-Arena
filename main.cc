@@ -23,7 +23,7 @@ int main(){
 	
 	int x = 20;
 	int y = 5;
-	int f = 1;
+	int f = 2;
 
 	int map[] = { x,y,f };
 	

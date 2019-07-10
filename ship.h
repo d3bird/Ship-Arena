@@ -57,7 +57,7 @@ private:
 	int ywidth;
 	int floors;
 
-	string ** map;
+	string *** map;
 
 	
 
