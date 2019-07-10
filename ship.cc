@@ -168,6 +168,8 @@ void ship::moveLifeForms(int from, int to, int amnt){
 	
 }
 
+// when dealing with the map, y should always come before the 
+
 void ship::genMap() {
 
 
@@ -176,8 +178,27 @@ void ship::genMap() {
 
 }
 
-// when dealing with the map, y should always come before the 
 
+void ship::convertToGrid(int rx, int ry) {
+	//cursors for room generation
+	int cx = 0;
+	int cy = 0;
+	int cf = 0;
+
+	//going through the entire ship checking for 
+
+	for (; cf < floors; cf++) {
+		for (;cy<ywidth) {
+			for () {
+
+			}
+
+		}
+
+	}
+	
+
+}
 
 void ship::genblankmap() {
 

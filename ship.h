@@ -47,6 +47,7 @@ public:
 	//dealing with ship layout generation
 
 	void genMap();
+	void convertToGrid(int rx, int ry);
 	void printmap();
 
 private:
