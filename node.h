@@ -19,7 +19,7 @@ bool reqLifeforms(){return reqLife;}//does it need life
 int getReqForms(){return reqforms;}// how many life forms are needed
 int getLifeForms(){return lifeforms;}// the number of current lifeforms in node
 void removeLife(int i){lifeforms-=i;}
-void addLife(int i){lifeforms+=i}
+void addLife(int i) { lifeforms += i; }
 
 bool isonline(){return online;}
 

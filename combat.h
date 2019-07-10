@@ -9,26 +9,26 @@ using namespace std;
 
 
 
-class fight{
-	public:
-	
-	fight(bool ovo, vector<ship> f);
-
-	bool FIGHT();
-
-	void removeship(int i);
-	void addShip(ship i);
-	
-	ship getvictor();
-	private:
-
-	
-	vector<ship> fighters;
-	bool compleate;
-	bool oneVone;
-	ship victor;
-	
-};
+//class fight{
+//	public:
+//	
+//	fight(bool ovo);
+//	
+//	bool FIGHT();
+//
+//	void removeship(int i);
+//	void addShip(ship i);
+//	
+//	ship getvictor();
+//	private:
+//
+//	
+//	vector<ship> fighters;
+//	bool compleate;
+//	bool oneVone;
+//	ship victor;
+//	
+//};
 
 class areana{
 	public:
@@ -48,7 +48,7 @@ class areana{
 	ship mostWins();
 	ship mostLosses();
 
-	queue<fight> fightque;
+	//queue<fight> fightque;
 	bool ruuning;
 	vector<ship> fighters;
 	

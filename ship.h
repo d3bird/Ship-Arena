@@ -6,9 +6,11 @@
 using namespace std;
 
 class ship{
-	public:
 
-	ship(int n, string na);
+public:
+
+	ship(int n, string na, int dim[3]);
+	~ship();
 
 	void genNode(int a[4], bool l, string n);
 	
@@ -38,11 +40,26 @@ class ship{
 	
 	double getEfficency();
 	
-	void moveLifeForms(int from, int to, amnt);
+	void moveLifeForms(int from, int to, int amnt);
 	
 	void update();
 	
-	private:
+	//dealing with ship layout generation
+
+	void genMap();
+	void printmap();
+
+private:
+
+	void genblankmap();
+
+	int xwidth;
+	int ywidth;
+	int floors;
+
+	string ** map;
+
+	
 
 	string name;
 	int fightswon;

@@ -12,8 +12,8 @@
 using namespace std;
 
 template<class T>
-void print(class T) {
-	cout << T << endl;
+void print(T i) {
+	cout << i << endl;
 }
 
 

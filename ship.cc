@@ -5,7 +5,7 @@
 
 using namespace std;
 
-ship::ship(int n, string na){
+ship::ship(int n, string na, int dim[3]){
 	totalweight =0;
 	weaponspower =0;
 	thrustspeed =0;
@@ -24,6 +24,15 @@ ship::ship(int n, string na){
 	currentstreak =1;
 	life =0;
 	team=0;
+	xwidth = dim[0];
+	ywidth = dim[1];
+	floors = dim[2];
+	genblankmap();
+	//genMap();
+}
+
+ship::~ship() {
+
 }
 
 //updates the ship stats after it takes damage
@@ -134,7 +143,7 @@ double ship::getEfficency(){
 	}
 }
 
-void ship::moveLifeForms(int from, int to, amnt){
+void ship::moveLifeForms(int from, int to, int amnt){
 
 	if((from<sections.size())&&(to<sections.size())){
 		
@@ -151,4 +160,42 @@ void ship::moveLifeForms(int from, int to, amnt){
 		cout<<"node2: "<<to<<endl;
 	}
 	
+}
+
+void ship::genMap() {
+
+
+
+
+
+}
+
+// when dealing with the map, y should always come before the 
+
+
+void ship::genblankmap() {
+
+	map = new string *[ywidth];
+
+	for (int i = 0; i < ywidth; i++) {
+		map[i] = new string[xwidth];
+	}
+
+	for (int y = 0; y < ywidth; y++) {
+		for (int x = 0; x < xwidth; x++) {
+			map[y][x] =".";
+
+		}
+	}
+}
+
+void ship::printmap() {
+	for (int y = 0; y < ywidth; y++) {
+		for (int x = 0; x < xwidth; x++) {
+
+			cout << map[y][x];
+
+		}
+		cout << endl;
+	}
 }

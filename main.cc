@@ -21,20 +21,29 @@ int main(){
 	
 	int temp[]={weight,weapons,thrust,lf};
 	
+	int x = 20;
+	int y = 5;
+	int f = 1;
+
+	int map[] = { x,y,f };
 	
-	ship test(0, "test_ship");	
-	test.genNode(temp,true, "node1");
+	ship test(0, "test_ship",map);	
+
+	//test.genNode(temp,true, "node1");
+	////print(test);
+	//test.genNode(temp,true, "node1");
+	////print(test);
+	//test.genNode(temp,true, "node1");
+	////print(test);
 	//print(test);
-	test.genNode(temp,true, "node1");
+	//cout<<"damaging nodes"<<endl;
+	//test.damagenode(0, 200);
 	//print(test);
-	test.genNode(temp,true, "node1");
-	//print(test);
-	print(test);
-	cout<<"damaging nodes"<<endl;
-	test.damagenode(0, 200);
-	print(test);
-	cout<<"repairing nodes"<<endl;
+	//cout<<"repairing nodes"<<endl;
 	
+	test.printmap();
+
 	
+		cout << "done" << endl;
 	return 0;
 }
