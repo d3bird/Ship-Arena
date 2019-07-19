@@ -2,72 +2,92 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
+//#include "output.h"
 using namespace std;
 
-ship::ship(int n, string na, int dim[3]){
-	totalweight =0;
-	weaponspower =0;
-	thrustspeed =0;
-	sectionsnum =0;
-	//genNode(n);
-	name =na;
-	fightswon =0;
-	fightslost =0;
-	wstreak =0;
-	lstreak =0;
-	alive =true;
-	breached =false;
+ship::ship(int n, string na, int dim[3]) {
+	totalweight = 0;
+	weaponspower = 0;
+	thrustspeed = 0;
+	sectionsnum = 0;
+	name = na;
+	fightswon = 0;
+	fightslost = 0;
+	wstreak = 0;
+	lstreak = 0;
+	alive = true;
+	breached = false;
 	gravity = true;
-	oxegen =100;
-	lastfight =0;
-	currentstreak =1;
-	life =0;
-	team=0;
+	oxegen = 100;
+	lastfight = 0;
+	currentstreak = 1;
+	life = 0;
+	team = 0;
 	xwidth = dim[0];
 	ywidth = dim[1];
 	floors = dim[2];
-	genblankmap();
-	convertToGrid(5,5);
-	addDoors();
+	genMap(n);
+	//ratios
+	rfuel = 1;
+	rpower = 1;
+	rweapons = 1;
+	roomsProw = 0;
+	roomsPcol = 0;
 }
 
 ship::~ship() {
+
 	for (int f = 0; f < floors; f++) {
 		for (int y = 0; y < ywidth; y++) {
 			delete[] map[f][y];
 		}
 		delete[] map[f];
 	}
+	
 	delete[] map;
+	
 }
 
 //updates the ship stats after it takes damage
 //needs to be optimised after it is working
-void ship::update(){
-	totalweight =0;
-	weaponspower =0;
-	thrustspeed =0;
-	life =0;
-	
-	for(int i =0; i < sections.size();i++){
+void ship::update() {
+	totalweight = 0;
+	weaponspower = 0;
+	thrustspeed = 0;
+	life = 0;
+	rfuel = 1;
+	rpower = 1;
+	rweapons = 1;
+
+	for (int i = 0; i < sections.size(); i++) {
 		totalweight += sections[i].getWeight();
 		weaponspower += sections[i].getWeapons();
 		thrustspeed += sections[i].getThrust();
-		life +=sections[i].getLifeForms();
+		life += sections[i].getLifeForms();
+
+		if (!sections[i].isBlank()) {
+			if (sections[i].isEngroom()) {
+				rfuel += sections[i].getRatio();
+			}
+			else if (sections[i].ispowerRoom()) {
+				rpower += sections[i].getRatio();
+			}
+			else if (sections[i].isweaponsRoom()) {
+				rweapons += sections[i].getRatio();
+			}
+		}
+
 	}
-	
+
 	//preform calculation for thrust speed
-	
+
 }
 
-	
 void ship::genNode(int a[4], bool l, string n){
-	node temp(a,l,n);
+	/*node temp(a,l,n);
 	sections.push_back(temp);
-	update();
+	update();*/
 }
-
 
 void ship::damagenode(int nod, int amnt){
 	if(nod<sections.size()){
@@ -89,7 +109,6 @@ void ship::repairNode(int nod, int amnt){
 	
 	update();
 }
-
 
 void ship::inputFightResults(int i){
 	if(i < 0){//the fight was a loss
@@ -119,7 +138,6 @@ void ship::inputFightResults(int i){
 	
 	
 }
-
 
 double ship::getEfficency(){
 	double current =0;
@@ -169,16 +187,19 @@ void ship::moveLifeForms(int from, int to, int amnt){
 	
 }
 
-// when dealing with the map, y should always come before the 
+// when dealing with the map, the vars should be f y x (floor, y axis, x axis)
 
-void ship::genMap() {
+void ship::genMap(int n) {
+	genblankmap();
+	convertToGrid(5, 5);
+	addDoors();
 
-
-
+	update();
 
 
 }
 
+//not currently used
 void ship::addDoors() {
 	cout << "adding doors to rooms" << endl;
 
@@ -214,12 +235,21 @@ void ship::convertToGrid(int rx, int ry) {
 						for (int y = 0; y < ry; y++) {
 							if ((y == 0 && x == 0) || (y == ry - 1 && x == 0) || (y == 0 && x == rx - 1) || (y == ry - 1 && x == rx - 1)) {
 								map[cf][cy + y][cx + x] = ",";
+
+								if (x == rx - 1 && cx + x + 1 < xwidth && (cy!=0 || y!=0 )) {
+									map[cf][cy + y][cx + x + 1] = "H";// places them in the corrners
+								}
+
 							}
 							else if (y == 0 || y == ry - 1) {
 								map[cf][cy + y][cx + x] = "_";
 							}
 							else if (x == 0 || x == rx - 1) {
 								map[cf][cy + y][cx + x] = "|";
+
+								if (x == rx - 1 && cx + x + 1 < xwidth) {
+									map[cf][cy + y][cx + x+1] = "H";// places them besides the rooms
+								}
 							}
 							else {
 								map[cf][cy + y][cx + x] = ".";
@@ -228,13 +258,26 @@ void ship::convertToGrid(int rx, int ry) {
 					}
 
 					cy += ry;
+					if (cy < ywidth && cx < xwidth) {// places hallways under the rooms
+						for (int x = 0; x < rx; x++) {
+							map[cf][cy][cx + x] = "H";
+						}
+
+						if (cx + rx < ywidth) {// places hallways at intersections
+							map[cf][cy][cx + rx] = "H";
+						}
+					
+					}
 					cy++;
+					roomsPcol++;
+					cout << roomsPcol << endl;
 				}
 			}
 			else {
 				cy = 0;
 				cx += rx;
 				cx++;
+				roomsProw++;
 				if (cx >= xwidth) {// if it runs out of rows then it will head to the next row
 					cf++;
 					cx = 0;
@@ -248,8 +291,7 @@ void ship::convertToGrid(int rx, int ry) {
 		}
 		
 	}
-	cout << "cleaning" << endl;
-	genHallways();
+	
 	cout << "done" << endl;
 
 }
@@ -267,7 +309,7 @@ void ship::genblankmap() {
 		}
 
 	}
-	for (int f = 0; f < floors; f++) {//defualtly puts hallways everywere
+	for (int f = 0; f < floors; f++) {
 		for (int y = 0; y < ywidth; y++) {
 			for (int x = 0; x < xwidth; x++) {
 				map[f][y][x] = " ";
@@ -277,7 +319,7 @@ void ship::genblankmap() {
 	}
 }
 
-//generate hallways 
+//generate hallways from door ways (currently not used)
 void ship::genHallways() {
 	bool running = true;
 	int cf = 0;

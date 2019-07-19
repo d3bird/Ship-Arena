@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 
 using namespace std;
@@ -44,6 +43,17 @@ public:
 	int getDy() { return dy; }
 	int getDf() { return df; }
 
+	bool isBlank() { return blank; }
+	bool isEngroom() { return engroom; }
+	bool ispowerRoom() { return powerRoom; }
+	bool isweaponsRoom() {return weaponsRoom; }
+	bool ismiscRoom() { return miscRoom; }
+	int getRoomvarient() { return  roomvarient; }
+
+	//should change based on room inheritance
+	string** getroomlayout(int rx, int ry) { return NULL; }// the map of the room
+	int getRatio() { return 0; }// amount that the ratios are increase (changes for room)
+
 private:
 	//location on the ship
 	int x;
@@ -75,6 +85,14 @@ private:
 	bool understaffed;
 
 	string name;
+
+	bool blank;
+	bool engroom;
+	bool powerRoom;
+	bool weaponsRoom;
+	bool miscRoom;
+
+	int roomvarient;
 
 };
 

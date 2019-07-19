@@ -4,29 +4,34 @@
 
 using namespace std;
 
-node::node(int a[12],bool l, string n){
-weight = a[0];
-maxWeight = weight;
-weapons =a[1];
-engines =a[2];
-reqforms=a[3];
-x = a[4];
-y = a[5];
-f = a[6];
-xsize = a[7];
-ysize = a[8];
-dx = a[9];
-dy = a[10];
-df = a[11];
-lifeforms=reqforms;
-name = n;
-reqLife = l;
-online = true;
-damaged =false;
-destoried =false;
-breached =false;
-breachsize =0;
-understaffed = false;
+node::node(int a[12], bool l, string n) {
+	weight = a[0];
+	maxWeight = weight;
+	weapons = a[1];
+	engines = a[2];
+	reqforms = a[3];
+	x = a[4];
+	y = a[5];
+	f = a[6];
+	xsize = a[7];
+	ysize = a[8];
+	dx = a[9];
+	dy = a[10];
+	df = a[11];
+	lifeforms = reqforms;
+	name = n;
+	reqLife = l;
+	online = true;
+	damaged = false;
+	destoried = false;
+	breached = false;
+	breachsize = 0;
+	understaffed = false;
+	blank = true;
+	engroom = false;
+	powerRoom = false;
+	weaponsRoom = false;
+	miscRoom = false;
 }
 
 int node::getWeapons(){

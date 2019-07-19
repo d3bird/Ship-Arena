@@ -11,22 +11,46 @@
 
 using namespace std;
 
+class console {
+public:
+
+	console(){}
+
 template<class T>
-void print(T i) {
+void print(T i);
+
+void testprint(string i);
+void endprint();
+
+void print(node & test);
+
+void print(ship & test);
+
+
+int testNode();
+int testShip();
+
+
+};
+
+
+
+template<class T>
+void console::print(T i) {
 	cout << i << endl;
 }
 
 
-void testprint(string i) {
+void console::testprint(string i) {
 	cout << "----------------" << i << "----------------" << endl;
 }
 
-void endprint() {
+void console::endprint() {
 	cout << "----------------" << "----------------------" << endl;
 }
 
 
-void print(node test) {
+void console::print(node & test) {
 
 	testprint("node print");
 
@@ -48,9 +72,11 @@ void print(node test) {
 
 }
 
-void print(ship test) {
+void console::print(ship &test) {
 
 	testprint("ship print");
+
+	test.printmap();
 
 	cout << "name: " << test.getName() << endl;
 	cout << "thrust: " << test.getThrustspeed() << endl;
@@ -65,10 +91,45 @@ void print(ship test) {
 	cout << "oxygen lvls: " << test.getOxygen() << endl;
 	cout << "life forms: " << test.numLivingForms() << endl;
 	cout << "efficency: " << test.getEfficency() << endl;
-
+	cout << "fuel ratio    1:" << test.getRfuel() << endl;
+	cout << "weapons ratio 1:" << test.getRweapons() << endl;
+	cout << "power ratio   1:" << test.getRpower() << endl;
+	cout << "rooms per col: " << test.getRoomsPcol() << endl;
+	cout << "life per row: " << test.getRoomsProw() << endl;
 	endprint();
 	cout << endl;
 
 	endprint();
 }
 
+int console::testNode() {
+	string name = "node_test";
+	int thrust = 100;
+	int weapons = 200;
+	int weight = 400;
+	int lf = 5;
+
+	return 0;
+}
+
+int console::testShip() {
+	int thrust = 100;
+	int weapons = 200;
+	int weight = 400;
+	int lf = 5;
+
+	int temp[] = { weight,weapons,thrust,lf };
+
+	int x = 40;
+	int y = 40;
+	int f = 2;
+
+	int mapsize[] = { x,y,f };
+
+	ship test(0, "test_ship", mapsize);
+
+	print(test);
+
+	print("done");
+	return 0;
+}

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class ship{
+class ship {
 
 public:
 
@@ -13,7 +13,7 @@ public:
 	~ship();
 
 	void genNode(int a[4], bool l, string n);
-	
+
 	void damagenode(int nod, int amnt);
 	void damagenodes(int dam, vector<int> nnodes);
 	void repairNode(int nod, int amnt);
@@ -21,37 +21,41 @@ public:
 	void inputFightResults(int i);
 
 	//var getters
-	int getThrustspeed(){return thrustspeed; }
-	int getweapons(){return weaponspower; }
-	int getTotalweight(){return totalweight;}
-	
-	int getFightsWon(){return fightswon; }
-	int getFightsLost(){return fightslost; }
-	int getWinStreak(){return wstreak; }
-	int getLossStreak(){return lstreak; }
-	
-	bool isAlive(){return alive; }
-	bool isBreach(){return breached; }
-	int getOxygen(){return oxegen;}
-	int getTeam(){return team;}
-	string getName(){return name;}
-	
-	int numLivingForms(){return life;}
-	
+	int getThrustspeed() { return thrustspeed; }
+	int getweapons() { return weaponspower; }
+	int getTotalweight() { return totalweight; }
+
+	int getFightsWon() { return fightswon; }
+	int getFightsLost() { return fightslost; }
+	int getWinStreak() { return wstreak; }
+	int getLossStreak() { return lstreak; }
+
+	bool isAlive() { return alive; }
+	bool isBreach() { return breached; }
+	int getOxygen() { return oxegen; }
+	int getTeam() { return team; }
+	string getName() { return name; }
+
+	int getRfuel() { return rfuel; }
+	int getRpower() { return rpower; }
+	int getRweapons() { return rweapons; }
+	int numLivingForms() { return life; }
 	double getEfficency();
-	
+	int getRoomsProw() { return roomsProw; }
+	int getRoomsPcol() { return roomsPcol; }
+
 	void moveLifeForms(int from, int to, int amnt);
-	
+
 	void update();
-	
+
 	//dealing with ship layout generation
 
-	void genMap();
-	void convertToGrid(int rx, int ry);
+	void genMap(int n);
+
 	void printmap();
 
 private:
-
+	void convertToGrid(int rx, int ry);
 	void genblankmap();
 	void addDoors();
 	void genHallways();
@@ -59,7 +63,7 @@ private:
 	int ywidth;
 	int floors;
 
-	string *** map;
+	string*** map;
 
 	string name;
 	int fightswon;
@@ -68,7 +72,7 @@ private:
 	int lstreak;
 	int currentstreak;
 	int lastfight;
-	
+
 	int totalweight;
 	int weaponspower;
 	int thrustspeed;
@@ -82,5 +86,13 @@ private:
 	vector<node> sections;
 
 	int team;
+
+	int roomsProw;
+	int roomsPcol;
+
+	//ratios
+	int rfuel;
+	int rpower;
+	int rweapons;
 
 };
