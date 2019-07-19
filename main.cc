@@ -21,13 +21,13 @@ int main(){
 	
 	int temp[]={weight,weapons,thrust,lf};
 	
-	int x = 20;
-	int y = 5;
+	int x = 40;
+	int y = 40;
 	int f = 2;
 
-	int map[] = { x,y,f };
+	int mapsize[] = { x,y,f };
 	
-	ship test(0, "test_ship",map);	
+	ship test(0, "test_ship", mapsize);
 
 	//test.genNode(temp,true, "node1");
 	////print(test);
@@ -41,9 +41,10 @@ int main(){
 	//print(test);
 	//cout<<"repairing nodes"<<endl;
 	
+	print("printing ship");
 	test.printmap();
 
 	
-		cout << "done" << endl;
+	cout << "done" << endl;
 	return 0;
 }

@@ -53,14 +53,13 @@ public:
 private:
 
 	void genblankmap();
-
+	void addDoors();
+	void genHallways();
 	int xwidth;
 	int ywidth;
 	int floors;
 
 	string *** map;
-
-	
 
 	string name;
 	int fightswon;

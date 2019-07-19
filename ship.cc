@@ -28,7 +28,8 @@ ship::ship(int n, string na, int dim[3]){
 	ywidth = dim[1];
 	floors = dim[2];
 	genblankmap();
-	//genMap();
+	convertToGrid(5,5);
+	addDoors();
 }
 
 ship::~ship() {
@@ -178,25 +179,78 @@ void ship::genMap() {
 
 }
 
+void ship::addDoors() {
+	cout << "adding doors to rooms" << endl;
+
+	cout << "done" << endl;
+}
 
 void ship::convertToGrid(int rx, int ry) {
+	cout << "converting the ship to a grid" << endl;
 	//cursors for room generation
 	int cx = 0;
 	int cy = 0;
 	int cf = 0;
-
+	bool running = true;
 	//going through the entire ship checking for 
 
-	for (; cf < floors; cf++) {
-		for (;cy<ywidth) {
-			for () {
+	while (running) {
 
+		if (cf < floors) {//checks to see if there are floors left to do
+
+			if (cy + ry < ywidth) {// check to see if you need to move to the next collum
+
+				if (cx + rx > xwidth) {
+					cf++;
+					cx = 0;
+					cy = 0;
+					if (cf >= floors) {
+						running = false;
+					}
+				}
+				else {
+
+					for (int x = 0; x < rx; x++) {
+						for (int y = 0; y < ry; y++) {
+							if ((y == 0 && x == 0) || (y == ry - 1 && x == 0) || (y == 0 && x == rx - 1) || (y == ry - 1 && x == rx - 1)) {
+								map[cf][cy + y][cx + x] = ",";
+							}
+							else if (y == 0 || y == ry - 1) {
+								map[cf][cy + y][cx + x] = "_";
+							}
+							else if (x == 0 || x == rx - 1) {
+								map[cf][cy + y][cx + x] = "|";
+							}
+							else {
+								map[cf][cy + y][cx + x] = ".";
+							}
+						}
+					}
+
+					cy += ry;
+					cy++;
+				}
+			}
+			else {
+				cy = 0;
+				cx += rx;
+				cx++;
+				if (cx >= xwidth) {// if it runs out of rows then it will head to the next row
+					cf++;
+					cx = 0;
+					cy = 0;
+				}
 			}
 
 		}
-
+		else {
+			running = false;
+		}
+		
 	}
-	
+	cout << "cleaning" << endl;
+	genHallways();
+	cout << "done" << endl;
 
 }
 
@@ -213,14 +267,39 @@ void ship::genblankmap() {
 		}
 
 	}
-	for (int f = 0; f < floors; f++) {
+	for (int f = 0; f < floors; f++) {//defualtly puts hallways everywere
 		for (int y = 0; y < ywidth; y++) {
 			for (int x = 0; x < xwidth; x++) {
-				map[f][y][x] = ".";
+				map[f][y][x] = " ";
 
 			}
 		}
 	}
+}
+
+//generate hallways 
+void ship::genHallways() {
+	bool running = true;
+	int cf = 0;
+
+	while (running) {
+
+		if (cf < floors) {
+			for (int x = 0; x < xwidth; x++) {
+				for (int y = 0; y < ywidth; y++) {
+					
+
+
+				}
+			}
+			cf++;
+		}
+		else {
+			running = false;
+		}
+
+	}
+
 }
 
 void ship::printmap() {
