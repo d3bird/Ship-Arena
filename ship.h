@@ -1,21 +1,23 @@
 #pragma once
+
 #include <string>
 #include <vector>
-#include "node.h"
 
-using namespace std;
+#include "node.h"
+#include "maptile.h"
 
 class ship {
 
 public:
 
-	ship(int n, string na, int dim[3]);
+	ship(int n, std::string na, int dim[3]);
+	ship(int n, std::string na, int dim[3], std::vector<node*>& r);
 	~ship();
 
-	void genNode(int a[4], bool l, string n);
+	void genNode(int a[4], bool l, std::string n);// not currently in use
 
 	void damagenode(int nod, int amnt);
-	void damagenodes(int dam, vector<int> nnodes);
+	void damagenodes(int dam, std::vector<int> nnodes);
 	void repairNode(int nod, int amnt);
 
 	void inputFightResults(int i);
@@ -34,16 +36,18 @@ public:
 	bool isBreach() { return breached; }
 	int getOxygen() { return oxegen; }
 	int getTeam() { return team; }
-	string getName() { return name; }
+	std::string getName() { return name; }
 
 	int getRfuel() { return rfuel; }
 	int getRpower() { return rpower; }
 	int getRweapons() { return rweapons; }
 	int numLivingForms() { return life; }
 	double getEfficency();
+
 	int getRoomsProw() { return roomsProw; }
 	int getRoomsPcol() { return roomsPcol; }
-
+	int getRoomNumber() { return numrooms; }
+	int getBlankRoomNumber() { return blankrooms; }
 	void moveLifeForms(int from, int to, int amnt);
 
 	void update();
@@ -51,21 +55,23 @@ public:
 	//dealing with ship layout generation
 
 	void genMap(int n);
-
+	void genRooms(std::vector<node*>& r);
+	void genRooms(int num);
 	void printmap();
+	
 
 private:
 	void convertToGrid(int rx, int ry);
 	void genblankmap();
 	void addDoors();
-	void genHallways();
+	void genHallways();//not currently in use
 	int xwidth;
 	int ywidth;
 	int floors;
 
-	string*** map;
+	maptile*** map;
 
-	string name;
+	std::string name;
 	int fightswon;
 	int fightslost;
 	int wstreak;
@@ -83,12 +89,16 @@ private:
 	int life;
 	bool alive;
 	int sectionsnum;
-	vector<node> sections;
 
 	int team;
 
+	//everything to do with rooms
+	bool roomsatend;
 	int roomsProw;
 	int roomsPcol;
+	int numrooms;
+	int blankrooms;
+	std::vector<node*> sections;
 
 	//ratios
 	int rfuel;

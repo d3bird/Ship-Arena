@@ -25,7 +25,7 @@ void endprint();
 void print(node & test);
 
 void print(ship & test);
-
+void nline();
 
 int testNode();
 int testShip();
@@ -91,15 +91,24 @@ void console::print(ship &test) {
 	cout << "oxygen lvls: " << test.getOxygen() << endl;
 	cout << "life forms: " << test.numLivingForms() << endl;
 	cout << "efficency: " << test.getEfficency() << endl;
+	nline();
 	cout << "fuel ratio    1:" << test.getRfuel() << endl;
 	cout << "weapons ratio 1:" << test.getRweapons() << endl;
 	cout << "power ratio   1:" << test.getRpower() << endl;
+	nline();
 	cout << "rooms per col: " << test.getRoomsPcol() << endl;
-	cout << "life per row: " << test.getRoomsProw() << endl;
+	cout << "rooms per row: " << test.getRoomsProw() << endl;
+	nline();
+	cout << "number of rooms: " << test.getRoomNumber() << endl;
+	cout << "number of blank rooms: " << test.getBlankRoomNumber() << endl;
 	endprint();
 	cout << endl;
 
 	endprint();
+}
+
+void console::nline() {
+	cout <<endl;
 }
 
 int console::testNode() {
@@ -122,7 +131,7 @@ int console::testShip() {
 
 	int x = 40;
 	int y = 40;
-	int f = 2;
+	int f = 1;
 
 	int mapsize[] = { x,y,f };
 
