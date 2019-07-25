@@ -15,5 +15,7 @@ int main(){
 	console con;
 	con.testShip();
 
+
+	cout << "finished program" << endl;
 	return 0;
 }

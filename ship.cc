@@ -262,6 +262,7 @@ void ship::convertToGrid(int rx, int ry) {
 	int cx = 0;
 	int cy = 0;
 	int cf = 0;
+	bool roomswitch = true;
 	bool running = true;
 	//going through the entire ship checking for 
 
@@ -300,6 +301,21 @@ void ship::convertToGrid(int rx, int ry) {
 								if (x == rx - 1 && cx + x + 1 < xwidth) {
 									map[cf][cy + y][cx + x+1] = "H";// places them besides the rooms
 								}
+
+								//places doors 
+								if (roomswitch) {
+									if (x == rx - 1 && y == ry / 2) {
+										map[cf][cy + y][cx + x] = "D";
+									}
+
+								}
+								else {
+									if (x == 0 && y == ry / 2) {
+										map[cf][cy + y][cx + x] = "D";
+									}
+								}
+							
+
 							}
 							else {
 								map[cf][cy + y][cx + x] = ".";
@@ -332,6 +348,14 @@ void ship::convertToGrid(int rx, int ry) {
 				cx += rx;
 				cx++;
 				roomsProw++;
+
+				if (roomswitch) {
+					roomswitch = false;
+				}
+				else {
+					roomswitch = true;
+				}
+
 				if (cx >= xwidth) {// if it runs out of rows then it will head to the next row
 					
 					cf++;
