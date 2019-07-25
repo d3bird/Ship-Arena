@@ -16,14 +16,13 @@ public:
 
 	console(){}
 
-template<class T>
-void print(T i);
+
 
 void testprint(string i);
 void endprint();
 
-void print(node & test);
-
+void print(node *test);
+void print(vector<node*> &input);
 void print(ship & test);
 void nline();
 
@@ -35,10 +34,7 @@ int testShip();
 
 
 
-template<class T>
-void console::print(T i) {
-	cout << i << endl;
-}
+
 
 
 void console::testprint(string i) {
@@ -50,26 +46,30 @@ void console::endprint() {
 }
 
 
-void console::print(node & test) {
+void console::print(node * test) {
 
 	testprint("node print");
+	int* temp = test->getloc();
+	cout << "name: " << test->getName() << endl;
+	cout << "loc at (x,y,f) : " << temp[0]<<","<< temp[1] <<","<< temp[2] << endl;
+	temp = test->getDloc();
+	cout << "door loc at x,y,f) : " << temp[0] << "," << temp[1] << "," << temp[2] << endl;
+	nline();
+	cout << "weight: " << test->getWeight() << endl;
+	cout << "weapons: " << test->getWeapons() << endl;
+	cout << "thrust: " << test->getThrust() << endl;
+	cout << "breached: " << test->isbreached() << endl;
+	cout << "breached size: " << test->getBreachSize() << endl;
+	cout << "reqs life: " << test->reqLifeforms() << endl;
+	cout << "forms needed: " << test->getReqForms() << endl;
+	cout << "forms present: " << test->getLifeForms() << endl;
+	cout << "understaffed: " << test->isonline() << endl;
+	cout << "online: " << test->isonline() << endl;
 
-	cout << "name: " << test.getName() << endl;
-	cout << "weight: " << test.getWeight() << endl;
-	cout << "weapons: " << test.getWeapons() << endl;
-	cout << "thrust: " << test.getThrust() << endl;
-	cout << "breached: " << test.isbreached() << endl;
-	cout << "breached size: " << test.getBreachSize() << endl;
-	cout << "reqs life: " << test.reqLifeforms() << endl;
-	cout << "forms needed: " << test.getReqForms() << endl;
-	cout << "forms present: " << test.getLifeForms() << endl;
-	cout << "understaffed: " << test.isonline() << endl;
-	cout << "online: " << test.isonline() << endl;
-
-	cout << endl;
+	nline();
 
 	endprint();
-
+	nline();
 }
 
 void console::print(ship &test) {
@@ -101,10 +101,21 @@ void console::print(ship &test) {
 	nline();
 	cout << "number of rooms: " << test.getRoomNumber() << endl;
 	cout << "number of blank rooms: " << test.getBlankRoomNumber() << endl;
+
+	print(test.getRooms());
+
 	endprint();
 	cout << endl;
 
 	endprint();
+}
+
+
+void console::print(vector<node*>& input) {
+
+	for (int i = 0; i < input.size(); i++) {
+		print(input[i]);
+	}
 }
 
 void console::nline() {
@@ -139,6 +150,6 @@ int console::testShip() {
 
 	print(test);
 
-	print("done");
+	
 	return 0;
 }

@@ -59,6 +59,7 @@ public:
 	void genRooms(int num);
 	void printmap();
 	
+	std::vector<node*>& getRooms() { return sections; }
 
 private:
 	void convertToGrid(int rx, int ry);

@@ -11,14 +11,16 @@ node::node(int a[12], bool l, string n) {
 	weapons = a[1];
 	engines = a[2];
 	reqforms = a[3];
-	x = a[4];
-	y = a[5];
-	f = a[6];
+	loc = new int[3];
+	dloc = new int[3];
+	loc [0]= a[4];// x
+	loc[1] = a[5];// y
+	loc[2] = a[6];// f
 	xsize = a[7];
 	ysize = a[8];
-	dx = a[9];
-	dy = a[10];
-	df = a[11];
+	dloc[0] = a[9];// dx
+	dloc[1] = a[10];// dy
+	dloc[2] = a[11];// df
 	lifeforms = reqforms;
 	name = n;
 	reqLife = l;
@@ -33,6 +35,11 @@ node::node(int a[12], bool l, string n) {
 	powerRoom = false;
 	weaponsRoom = false;
 	miscRoom = false;
+}
+
+node::~node() {
+	delete[] loc;
+	delete[] dloc;
 }
 
 int node::getWeapons(){

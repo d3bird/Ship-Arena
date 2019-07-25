@@ -9,7 +9,7 @@ class node {
 public:
 
 	node(int a[12], bool l, string n);
-
+	~node();
 	int getWeight() { return weight; }
 	int getWeapons();//{return weapons;
 	int getThrust();//{return engines;
@@ -34,15 +34,13 @@ public:
 	void damage(int i);
 	void repair(int i);
 
-	int getfloor() { return f; }
-	int getX() { return x; }
-	int getY() { return y; }
+	int* getloc() { return loc; }
+
 	int getXsize() { return xsize; }
 	int getYsize() { return ysize; }
 
-	int getDx() { return dx; }
-	int getDy() { return dy; }
-	int getDf() { return df; }
+	int* getDloc() { return dloc; }
+	
 
 	bool isBlank() { return blank; }
 	bool isEngroom() { return engroom; }
@@ -57,16 +55,12 @@ public:
 
 private:
 	//location on the ship
-	int x;
-	int y;
-	int f;
+	int* loc;
 
 	int xsize;
 	int ysize;
 	// location to the door to the room
-	int dx;
-	int dy;
-	int df;
+	int* dloc;
 
 	bool breached;
 	int breachsize;

@@ -75,7 +75,7 @@ ship::ship(int n, string na, int dim[3], std::vector<node*>& r) {
 }
 
 ship::~ship() {
-
+	//removing the map
 	for (int f = 0; f < floors; f++) {
 		for (int y = 0; y < ywidth; y++) {
 			delete[] map[f][y];
@@ -85,6 +85,12 @@ ship::~ship() {
 	
 	delete[] map;
 	
+	//removing the rooms
+
+	for (int i = sections.size()-1; i > -1; i--) {
+		delete sections[i];
+	}
+
 }
 
 //updates the ship stats after it takes damage
@@ -262,6 +268,11 @@ void ship::convertToGrid(int rx, int ry) {
 	int cx = 0;
 	int cy = 0;
 	int cf = 0;
+	int cdf = -1;
+	int cdx = -1;
+	int cdy = -1;
+	node* tempRoom;
+	int roominputs[12];
 	bool roomswitch = true;
 	bool running = true;
 	//going through the entire ship checking for 
@@ -302,16 +313,24 @@ void ship::convertToGrid(int rx, int ry) {
 									map[cf][cy + y][cx + x+1] = "H";// places them besides the rooms
 								}
 
+							
 								//places doors 
 								if (roomswitch) {
 									if (x == rx - 1 && y == ry / 2) {
 										map[cf][cy + y][cx + x] = "D";
+										cdf = cf;
+										cdx = cx + x;
+										cdy = cy + y;
+										cout << cdx << "," << cy + y << endl;
 									}
 
 								}
 								else {
 									if (x == 0 && y == ry / 2) {
 										map[cf][cy + y][cx + x] = "D";
+										cdf = cf;
+										cdx = cx + x;
+										cdy = cy + y;
 									}
 								}
 							
@@ -324,8 +343,26 @@ void ship::convertToGrid(int rx, int ry) {
 					}
 
 					//adds the room to the list of rooms
+
+					roominputs[0] = 10;//weight
+					roominputs[1] = 0;//weapons
+					roominputs[2] = 0;//engins
+					roominputs[3] = 0;
+					roominputs[4] = cx;
+					roominputs[5] = cy;
+					roominputs[6] = cf;
+					roominputs[7] = rx;
+					roominputs[8] = ry;
+					roominputs[9] = cdx;
+					roominputs[10] = cdy;
+					roominputs[11] = cdf;
+
+					tempRoom = new node(roominputs, false, "blankroom");
+					sections.push_back(tempRoom);
+					
 					blankrooms++;
 					numrooms++;
+					
 				
 
 					cy += ry;
