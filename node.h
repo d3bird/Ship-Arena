@@ -35,12 +35,10 @@ public:
 	void repair(int i);
 
 	int* getloc() { return loc; }
-
-	int getXsize() { return xsize; }
-	int getYsize() { return ysize; }
-
 	int* getDloc() { return dloc; }
 	
+	void setloc(int* i) { loc = i; }
+	void setDloc(int* i) { dloc = i; }
 
 	bool isBlank() { return blank; }
 	bool isEngroom() { return engroom; }
@@ -50,7 +48,7 @@ public:
 	int getRoomvarient() { return  roomvarient; }
 
 	//should change based on room inheritance
-	string** getroomlayout(int rx, int ry) { return NULL; }// the map of the room
+	string** getroomlayout(int rx, int ry);// the map of the room
 	int getRatio() { return 0; }// amount that the ratios are increase (changes for room)
 
 private:

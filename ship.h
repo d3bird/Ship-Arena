@@ -64,8 +64,6 @@ public:
 private:
 	void convertToGrid(int rx, int ry);
 	void genblankmap();
-	void addDoors();
-	void genHallways();//not currently in use
 	int xwidth;
 	int ywidth;
 	int floors;

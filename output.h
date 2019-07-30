@@ -9,7 +9,6 @@
 #include "ship.h"
 #include "combat.h"
 
-using namespace std;
 
 class console {
 public:
@@ -22,7 +21,7 @@ void testprint(string i);
 void endprint();
 
 void print(node *test);
-void print(vector<node*> &input);
+void print(std::vector<node*> &input);
 void print(ship & test);
 void nline();
 
@@ -34,15 +33,12 @@ int testShip();
 
 
 
-
-
-
 void console::testprint(string i) {
-	cout << "----------------" << i << "----------------" << endl;
+	std::cout << "----------------" << i << "----------------" << std::endl;
 }
 
 void console::endprint() {
-	cout << "----------------" << "----------------------" << endl;
+	std::cout << "----------------" << "----------------------" << std::endl;
 }
 
 
@@ -50,21 +46,21 @@ void console::print(node * test) {
 
 	testprint("node print");
 	int* temp = test->getloc();
-	cout << "name: " << test->getName() << endl;
-	cout << "loc at (x,y,f) : " << temp[0]<<","<< temp[1] <<","<< temp[2] << endl;
+	std::cout << "name: " << test->getName() << std::endl;
+	std::cout << "loc at (x,y,f) : " << temp[0]<<","<< temp[1] <<","<< temp[2] << std::endl;
 	temp = test->getDloc();
-	cout << "door loc at x,y,f) : " << temp[0] << "," << temp[1] << "," << temp[2] << endl;
+	std::cout << "door loc at x,y,f) : " << temp[0] << "," << temp[1] << "," << temp[2] << std::endl;
 	nline();
-	cout << "weight: " << test->getWeight() << endl;
-	cout << "weapons: " << test->getWeapons() << endl;
-	cout << "thrust: " << test->getThrust() << endl;
-	cout << "breached: " << test->isbreached() << endl;
-	cout << "breached size: " << test->getBreachSize() << endl;
-	cout << "reqs life: " << test->reqLifeforms() << endl;
-	cout << "forms needed: " << test->getReqForms() << endl;
-	cout << "forms present: " << test->getLifeForms() << endl;
-	cout << "understaffed: " << test->isonline() << endl;
-	cout << "online: " << test->isonline() << endl;
+	std::cout << "weight: " << test->getWeight() << std::endl;
+	std::cout << "weapons: " << test->getWeapons() << std::endl;
+	std::cout << "thrust: " << test->getThrust() << std::endl;
+	std::cout << "breached: " << test->isbreached() << std::endl;
+	std::cout << "breached size: " << test->getBreachSize() << std::endl;
+	std::cout << "reqs life: " << test->reqLifeforms() << std::endl;
+	std::cout << "forms needed: " << test->getReqForms() << std::endl;
+	std::cout << "forms present: " << test->getLifeForms() << std::endl;
+	std::cout << "understaffed: " << test->isonline() << std::endl;
+	std::cout << "online: " << test->isonline() << std::endl;
 
 	nline();
 
@@ -75,37 +71,38 @@ void console::print(node * test) {
 void console::print(ship &test) {
 
 	testprint("ship print");
-
+	
 	test.printmap();
+	
 
-	cout << "name: " << test.getName() << endl;
-	cout << "thrust: " << test.getThrustspeed() << endl;
-	cout << "weapons: " << test.getweapons() << endl;
-	cout << "weight: " << test.getTotalweight() << endl;
-	cout << "fights won: " << test.getFightsWon() << endl;
-	cout << "fights lost: " << test.getFightsLost() << endl;
-	cout << "W streak: " << test.getWinStreak() << endl;
-	cout << "L streak: " << test.getLossStreak() << endl;
-	cout << "alive: " << test.isAlive() << endl;
-	cout << "breached: " << test.isBreach() << endl;
-	cout << "oxygen lvls: " << test.getOxygen() << endl;
-	cout << "life forms: " << test.numLivingForms() << endl;
-	cout << "efficency: " << test.getEfficency() << endl;
+	std::cout << "name: " << test.getName() << std::endl;
+	std::cout << "thrust: " << test.getThrustspeed() << std::endl;
+	std::cout << "weapons: " << test.getweapons() << std::endl;
+	std::cout << "weight: " << test.getTotalweight() << std::endl;
+	std::cout << "fights won: " << test.getFightsWon() << std::endl;
+	std::cout << "fights lost: " << test.getFightsLost() << std::endl;
+	std::cout << "W streak: " << test.getWinStreak() << std::endl;
+	std::cout << "L streak: " << test.getLossStreak() << std::endl;
+	std::cout << "alive: " << test.isAlive() << std::endl;
+	std::cout << "breached: " << test.isBreach() << std::endl;
+	std::cout << "oxygen lvls: " << test.getOxygen() << std::endl;
+	std::cout << "life forms: " << test.numLivingForms() << std::endl;
+	std::cout << "efficency: " << test.getEfficency() << std::endl;
 	nline();
-	cout << "fuel ratio    1:" << test.getRfuel() << endl;
-	cout << "weapons ratio 1:" << test.getRweapons() << endl;
-	cout << "power ratio   1:" << test.getRpower() << endl;
+	std::cout << "fuel ratio    1:" << test.getRfuel() << std::endl;
+	std::cout << "weapons ratio 1:" << test.getRweapons() << std::endl;
+	std::cout << "power ratio   1:" << test.getRpower() << std::endl;
 	nline();
-	cout << "rooms per col: " << test.getRoomsPcol() << endl;
-	cout << "rooms per row: " << test.getRoomsProw() << endl;
+	std::cout << "rooms per col: " << test.getRoomsPcol() << std::endl;
+	std::cout << "rooms per row: " << test.getRoomsProw() << std::endl;
 	nline();
-	cout << "number of rooms: " << test.getRoomNumber() << endl;
-	cout << "number of blank rooms: " << test.getBlankRoomNumber() << endl;
+	std::cout << "number of rooms: " << test.getRoomNumber() << std::endl;
+	std::cout << "number of blank rooms: " << test.getBlankRoomNumber() << std::endl;
 
 	print(test.getRooms());
 
 	endprint();
-	cout << endl;
+	std::cout << std::endl;
 
 	endprint();
 }
@@ -119,7 +116,7 @@ void console::print(vector<node*>& input) {
 }
 
 void console::nline() {
-	cout <<endl;
+	std::cout << std::endl;
 }
 
 int console::testNode() {
@@ -146,7 +143,48 @@ int console::testShip() {
 
 	int mapsize[] = { x,y,f };
 
-	ship test(0, "test_ship", mapsize);
+
+	int roominputs[12];
+	roominputs[0] = 10;//weight
+	roominputs[1] = 0;//weapons
+	roominputs[2] = 0;//engins
+	roominputs[3] = 0;
+	roominputs[4] = -1;
+	roominputs[5] = -1;
+	roominputs[6] = -1;
+	roominputs[7] = -1;
+	roominputs[8] = -1;
+	roominputs[9] = -1;
+	roominputs[10] = -1;
+	roominputs[11] = -1;
+
+	std::vector<node*> sections;
+
+	node * tnode;
+
+	roominputs[0] = 10;//weight
+	roominputs[1] = 100;//weapons
+	roominputs[2] = 0;//engins
+
+	tnode = new node(roominputs, false, "Cannon Room");
+	sections.push_back(tnode);
+
+	roominputs[0] = 10;//weight
+	roominputs[1] = 0;//weapons
+	roominputs[2] = 100;//engins
+
+	tnode = new node(roominputs, false, "engine");
+	sections.push_back(tnode);
+
+	roominputs[0] = 10;//weight
+	roominputs[1] = 30;//weapons
+	roominputs[2] = 30;//engins
+
+	tnode= new node(roominputs, false, "mix");
+	sections.push_back(tnode);
+
+
+	ship test(0, "test_ship", mapsize, sections);
 
 	print(test);
 

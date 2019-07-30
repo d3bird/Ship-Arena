@@ -55,8 +55,6 @@ int node::getWeapons(){
 	return weapons;
 }
 
-
-
 int node::getThrust(){
 	if(destoried){
 		return 0;
@@ -99,7 +97,6 @@ void node::damage(int i){
 		}
 	}
 }
-
 
 void node::repair(int i){
 	if ((weight/4)<i){

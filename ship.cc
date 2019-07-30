@@ -7,8 +7,6 @@
 //#include "output.h"
 using namespace std;
 
-
-
 ship::ship(int n, string na, int dim[3]) {
 	totalweight = 0;
 	weaponspower = 0;
@@ -234,16 +232,17 @@ void ship::moveLifeForms(int from, int to, int amnt){
 }
 
 // when dealing with the map, the vars should be f y x (floor, y axis, x axis)
-
 void ship::genMap(int n) {
 	genblankmap();
 	convertToGrid(5, 5);
 	addDoors();
 
 	if (roomsatend) {
-		bool running = true;
 		cout<<"need to fill rooms" << endl;
 		
+	
+		
+		cout << "done filling rooms" << endl;
 	}
 	else {
 		cout << "rooms were added durring the creation proccesses" << endl;
@@ -271,10 +270,13 @@ void ship::convertToGrid(int rx, int ry) {
 	int cdf = -1;
 	int cdx = -1;
 	int cdy = -1;
+	int roomcusor = 0;
 	node* tempRoom;
 	int roominputs[12];
+	int * roominputs2;
 	bool roomswitch = true;
 	bool running = true;
+	bool roomsleft = true;
 	//going through the entire ship checking for 
 
 	while (running) {
@@ -344,23 +346,47 @@ void ship::convertToGrid(int rx, int ry) {
 
 					//adds the room to the list of rooms
 
-					roominputs[0] = 10;//weight
-					roominputs[1] = 0;//weapons
-					roominputs[2] = 0;//engins
-					roominputs[3] = 0;
-					roominputs[4] = cx;
-					roominputs[5] = cy;
-					roominputs[6] = cf;
-					roominputs[7] = rx;
-					roominputs[8] = ry;
-					roominputs[9] = cdx;
-					roominputs[10] = cdy;
-					roominputs[11] = cdf;
+					if (!roomsatend&&roomsleft) {
+						if (roomcusor >= sections.size()) {
+							roomsleft = false;
+						}
+						else {
+							cout << "adding room to room" << endl;
+							roominputs2 = new int[3];
+							roominputs2[0] = cx;
+							roominputs2[1] = cy;
+							roominputs2[2] = cf;
+							sections[roomcusor]->setloc(roominputs2);
+							roominputs2 = new int[3];
+							roominputs2[0] = cdx;
+							roominputs2[1] = cdy;
+							roominputs2[2] = cdf;
+							sections[roomcusor]->setDloc(roominputs2);
+							roomcusor++;
+						}
+					}
+					else {
 
-					tempRoom = new node(roominputs, false, "blankroom");
-					sections.push_back(tempRoom);
-					
-					blankrooms++;
+						roominputs[0] = 10;//weight
+						roominputs[1] = 0;//weapons
+						roominputs[2] = 0;//engins
+						roominputs[3] = 0;
+						roominputs[4] = cx;
+						roominputs[5] = cy;
+						roominputs[6] = cf;
+						roominputs[7] = rx;
+						roominputs[8] = ry;
+						roominputs[9] = cdx;
+						roominputs[10] = cdy;
+						roominputs[11] = cdf;
+
+						tempRoom = new node(roominputs, false, "blankroom");
+						sections.push_back(tempRoom);
+
+						blankrooms++;
+
+					}
+
 					numrooms++;
 					
 				
@@ -479,8 +505,7 @@ void ship::printmap() {
 }
 
 void ship::genRooms(std::vector<node*>& r) {
-
-
+	sections = r;
 }
 
 void ship::genRooms(int num) {
