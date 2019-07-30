@@ -235,31 +235,12 @@ void ship::moveLifeForms(int from, int to, int amnt){
 void ship::genMap(int n) {
 	genblankmap();
 	convertToGrid(5, 5);
-	addDoors();
-
-	if (roomsatend) {
-		cout<<"need to fill rooms" << endl;
-		
-	
-		
-		cout << "done filling rooms" << endl;
-	}
-	else {
-		cout << "rooms were added durring the creation proccesses" << endl;
-	}
-
 
 	update();
 
 
 }
 
-//not currently used
-void ship::addDoors() {
-	cout << "adding doors to rooms" << endl;
-
-	cout << "done" << endl;
-}
 
 void ship::convertToGrid(int rx, int ry) {
 	cout << "converting the ship to a grid" << endl;
@@ -463,30 +444,6 @@ void ship::genblankmap() {
 	}
 }
 
-//generate hallways from door ways (currently not used)
-void ship::genHallways() {
-	bool running = true;
-	int cf = 0;
-
-	while (running) {
-
-		if (cf < floors) {
-			for (int x = 0; x < xwidth; x++) {
-				for (int y = 0; y < ywidth; y++) {
-					
-
-
-				}
-			}
-			cf++;
-		}
-		else {
-			running = false;
-		}
-
-	}
-
-}
 
 void ship::printmap() {
 	for (int f = 0; f < floors; f++) {
