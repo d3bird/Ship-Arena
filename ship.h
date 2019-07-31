@@ -64,11 +64,12 @@ public:
 private:
 	void convertToGrid(int rx, int ry);
 	void genblankmap();
+	void setMapStats();
 	int xwidth;
 	int ywidth;
 	int floors;
 
-	maptile*** map;
+	shiptile*** map;
 
 	std::string name;
 	int fightswon;

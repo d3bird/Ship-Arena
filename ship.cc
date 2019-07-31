@@ -235,12 +235,11 @@ void ship::moveLifeForms(int from, int to, int amnt){
 void ship::genMap(int n) {
 	genblankmap();
 	convertToGrid(5, 5);
-
+	setMapStats();
 	update();
 
 
 }
-
 
 void ship::convertToGrid(int rx, int ry) {
 	cout << "converting the ship to a grid" << endl;
@@ -296,7 +295,7 @@ void ship::convertToGrid(int rx, int ry) {
 									map[cf][cy + y][cx + x+1] = "H";// places them besides the rooms
 								}
 
-							
+								
 								//places doors 
 								if (roomswitch) {
 									if (x == rx - 1 && y == ry / 2) {
@@ -423,14 +422,14 @@ void ship::convertToGrid(int rx, int ry) {
 
 void ship::genblankmap() {
 
-	map = new maptile **[floors];
+	map = new shiptile **[floors];
 	
 	for (int f = 0; f < floors; f++) {
 
-		map[f] = new maptile *[ywidth]; // generating the rows
+		map[f] = new shiptile *[ywidth]; // generating the rows
 
 		for (int i = 0; i < ywidth; i++) {// generating the collums
-			map[f][i] = new maptile[xwidth];
+			map[f][i] = new shiptile[xwidth];
 		}
 
 	}
@@ -443,7 +442,6 @@ void ship::genblankmap() {
 		}
 	}
 }
-
 
 void ship::printmap() {
 	for (int f = 0; f < floors; f++) {
@@ -459,6 +457,43 @@ void ship::printmap() {
 			cout << endl;
 		}
 	}
+}
+
+void ship::setMapStats() {
+
+	bool b[4] = { false,false,false,false };
+	int i[2] = { 0,0 };
+	double d = 0;
+
+	for (int f = 0; f < floors; f++) {
+		for (int y = 0; y < ywidth; y++) {
+			for (int x = 0; x < xwidth; x++) {
+
+				if (map[f][y][x].getobj() == "|" || map[f][y][x].getobj() == "_" || map[f][y][x].getobj() == ",") {
+					b[0] = true;
+					b[1] = true;
+					b[2] = false;
+					b[3] = false;
+					i[0] = 20;
+					i[1] = 20;
+					d = 10;
+				}
+				else {
+					b[0] = false;
+					b[1] = false;
+					b[2] = false;
+					b[3] = false;
+					i[0] = 0;
+					i[1] = 0;
+					d = 0;
+				}
+				
+				map[f][y][x].setVars(b, i, d);
+			}
+			cout << endl;
+		}
+	}
+
 }
 
 void ship::genRooms(std::vector<node*>& r) {
