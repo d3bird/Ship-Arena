@@ -22,8 +22,10 @@ private:
 	std::string obj;
 };
 
-class shiptile : public maptile {
+class shiptile {
 public:
+	std::string getobj() { return obj; }
+	void setObj(std::string i) { obj = i; }
 
 	bool operator =(std::string other) { setObj(other); return true; }
 	bool operator ==(std::string o) { return getobj() == o ? true : false; }
@@ -56,9 +58,11 @@ private:
 	bool broken;
 	bool inuse;
 
+	std::string obj;
+
 };
 
-class arenatile : public maptile {
+class arenatile {
 public:
 
 private:

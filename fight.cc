@@ -12,3 +12,13 @@ fight::fight(std::vector<ship*>& f) {
 	winner = NULL;
 
 }
+
+fight::~fight() {
+	delete winner;
+	ship* temp = NULL;
+	for (int i = fighters.size(); i > -1; i--) {
+		temp = fighters[i];
+		delete temp;
+		fighters.pop_back();
+	}
+}

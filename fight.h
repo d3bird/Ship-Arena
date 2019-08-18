@@ -7,6 +7,7 @@ class fight {
 public:
 
 	fight(std::vector<ship*>& f);
+	~fight();
 
 	std::vector<ship*>& getfighters() { return fighters; }
 	ship* getWinner() { return winner; }

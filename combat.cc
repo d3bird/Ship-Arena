@@ -10,6 +10,11 @@ arena::arena(int snumber, int fnumber, vector<ship*>& f) {
 	numOfFights = fnumber;
 }
 
+arena::~arena() {
+	
+
+}
+
 void arena::genShips(int i) {
 
 }
@@ -30,18 +35,18 @@ void arena::printQue() {
 
 }
 
-void areana::swapFights() {
+void arena::swapFights() {
 
 }
 
-ship areana::runsim() {
+ship arena::runsim() {
 
 }
 
-ship areana::mostWins() {
+ship arena::mostWins() {
 
 }
 
-ship areana::mostLosses() {
+ship arena::mostLosses() {
 
 }

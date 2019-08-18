@@ -3,8 +3,11 @@
 #include <vector>
 #include <queue>
 
+//#include "maptile.h"
 #include "ship.h"
 #include "fight.h"
+
+
 
 using namespace std;
 
@@ -14,6 +17,7 @@ public:
 
 	arena(int snumber, int fnumber);
 	arena(int snumber, int fnumber, vector<ship*>& f);
+	~arena();
 
 	void genShips(int i);
 
@@ -30,7 +34,7 @@ public:
 	ship mostLosses();
 
 private:
-
+	
 
 	//queue<fight> fightque;
 	bool running;
@@ -39,9 +43,9 @@ private:
 	int shipnumber;
 	int numOfFights;
 
+	//arenatile*** map;
 
-
-	vector<ship*> fighters;
+	
 };
 
 
