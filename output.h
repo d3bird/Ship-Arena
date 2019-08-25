@@ -8,7 +8,7 @@
 #include "node.h"
 #include "ship.h"
 #include "combat.h"
-
+#include "fight.h"
 
 class console {
 public:
@@ -25,13 +25,14 @@ void print(std::vector<node*> &input);
 void print(ship & test);
 void nline();
 
+void printFight(fight& f);
+void printArena(arena& a);
+
 int testNode();
 int testShip();
 
 
 };
-
-
 
 void console::testprint(string i) {
 	std::cout << "----------------" << i << "----------------" << std::endl;
@@ -40,7 +41,6 @@ void console::testprint(string i) {
 void console::endprint() {
 	std::cout << "----------------" << "----------------------" << std::endl;
 }
-
 
 void console::print(node * test) {
 
@@ -74,7 +74,6 @@ void console::print(ship &test) {
 	
 	test.printmap();
 	
-
 	std::cout << "name: " << test.getName() << std::endl;
 	std::cout << "thrust: " << test.getThrustspeed() << std::endl;
 	std::cout << "weapons: " << test.getweapons() << std::endl;
@@ -143,7 +142,6 @@ int console::testShip() {
 
 	int mapsize[] = { x,y,f };
 
-
 	int roominputs[12];
 	roominputs[0] = 10;//weight
 	roominputs[1] = 0;//weapons
@@ -188,6 +186,67 @@ int console::testShip() {
 
 	print(test);
 
-	
 	return 0;
 }
+
+void console::printFight(fight& f) {
+
+	std::cout << "printing fight" << std::endl;
+	std::cout << "has the fight happened: " << f.isFinished() << std::endl;
+	std::cout << "id the fight happened: " << f.isRunning() << std::endl;
+
+	if (f.getfighters().size() > 0) {
+		std::cout << "the current fighters are: ";
+
+		for (int i = 0; i < f.getfighters().size(); i++) {
+			std::cout << f.getfighters()[i]->getName() << " ";
+		}
+
+		std::cout << std::endl;
+	}
+	else {
+		std::cout << "there are no current ship in this fight" << std::endl;
+	}
+
+	if (f.isFinished()) {
+		std::cout << "The winner is " << f.getWinner()->getName() << std::endl;
+	}
+	else {
+		std::cout << "there is no winner yet" << std::endl;
+	}
+
+}
+
+void console::printArena(arena& a) {
+	std::cout << "the curret map for the arean" << endl;
+	a.printMap();
+
+	std::cout << "the number of ships here: " << a.getShipnumber() << std::endl;
+	std::cout << "the number of fights happening: " << a.getNumberOfFights() << std::endl;
+	vector<fight> que = a.getFightlist();
+
+	if (que.size() > 0) {
+		std::cout << "the fights that are queued fot this arena" << endl;
+		std::cout << "here are the queued up ship fights" << endl;
+		for (int i = 0; i < que.size(); i++) {
+			printFight(que[i]);
+			std::cout << std::endl;
+		}
+	}
+	else {
+		std::cout << "there has been no fights added to this areana" << std::endl;
+	}
+
+	if (a.isFinished()) {
+		std::cout << "all fights have been procced" << std::endl;
+		std::cout << "the winner is: " << a.getWinner()->getName()<< std::endl;
+	}
+	else if (a.isRunning()) {
+		std::cout << "the fights are currently in progress" << std::endl;
+	}
+	else {
+		std::cout << "the sim has not started yet" << std::endl;
+	}
+
+}
+
