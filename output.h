@@ -25,7 +25,7 @@ void print(std::vector<node*> &input);
 void print(ship & test);
 void nline();
 
-void printFight(fight& f);
+void printFight(fight* f);
 void printArena(arena& a);
 
 int testNode();
@@ -189,17 +189,17 @@ int console::testShip() {
 	return 0;
 }
 
-void console::printFight(fight& f) {
+void console::printFight(fight* f) {
 
 	std::cout << "printing fight" << std::endl;
-	std::cout << "has the fight happened: " << f.isFinished() << std::endl;
-	std::cout << "id the fight happened: " << f.isRunning() << std::endl;
+	std::cout << "has the fight happened: " << f->isFinished() << std::endl;
+	std::cout << "id the fight happened: " << f->isRunning() << std::endl;
 
-	if (f.getfighters().size() > 0) {
+	if (f->getfighters().size() > 0) {
 		std::cout << "the current fighters are: ";
 
-		for (int i = 0; i < f.getfighters().size(); i++) {
-			std::cout << f.getfighters()[i]->getName() << " ";
+		for (int i = 0; i < f->getfighters().size(); i++) {
+			std::cout << f->getfighters()[i]->getName() << " ";
 		}
 
 		std::cout << std::endl;
@@ -208,8 +208,8 @@ void console::printFight(fight& f) {
 		std::cout << "there are no current ship in this fight" << std::endl;
 	}
 
-	if (f.isFinished()) {
-		std::cout << "The winner is " << f.getWinner()->getName() << std::endl;
+	if (f->isFinished()) {
+		std::cout << "The winner is " << f->getWinner()->getName() << std::endl;
 	}
 	else {
 		std::cout << "there is no winner yet" << std::endl;
@@ -223,7 +223,7 @@ void console::printArena(arena& a) {
 
 	std::cout << "the number of ships here: " << a.getShipnumber() << std::endl;
 	std::cout << "the number of fights happening: " << a.getNumberOfFights() << std::endl;
-	vector<fight> que = a.getFightlist();
+	vector<fight*> que = a.getFightlist();
 
 	if (que.size() > 0) {
 		std::cout << "the fights that are queued fot this arena" << endl;

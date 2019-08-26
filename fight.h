@@ -6,7 +6,7 @@
 class fight {
 public:
 
-	fight(std::vector<ship*>& f);
+	fight(std::vector<ship*> f);
 	~fight();
 
 	std::vector<ship*>& getfighters() { return fighters; }
@@ -14,6 +14,8 @@ public:
 
 	bool isRunning() { return running; }
 	bool isFinished() { return finished; }
+
+	int getNumOfFighters() { return fighters.size(); }
 
 	void completeFight() { finished = true; running = false; }
 	void runningFight() { running = true; }

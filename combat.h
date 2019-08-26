@@ -14,42 +14,44 @@ class arena {
 public:
 
 	arena(int snumber, int fnumber);
-	arena(int snumber, int fnumber, vector<ship*>& f);
+	arena(int snumber, int fnumber, vector<int>& size, vector<ship*>& f);
 	~arena();
 
-	void genShips(int i);
-	ship* createShip();
+	ship* createShip(std::string name);
+	ship* createShip(std::string name, int dim[3]);
 
-	void clearAreana();
-	void createFight(vector<int> f);
-	void removeFights(vector<int> f);
+	void clearAreanaMap();
+	void clearAreanaFights();
+	void createFight(vector<int>& size, vector<ship*>& ships);
+	void removeFight(int i);
 
 	//void printQue();
-	void swapFights();
+	void swapFights(int f, int s);
 
-	ship runsim();
+	ship* runsim();
 
-	ship mostWins();
-	ship mostLosses();
-
+	ship* mostWins();
+	ship* mostLosses();
 
 	//debug output getter functions
 	void printMap();
 
 	bool isRunning() { return running; }
 	bool isFinished() { return finished; }
-	
+
 	int getShipnumber() { return shipnumber; }
 	int getNumberOfFights() { return numOfFights; }
-	vector<fight> getFightlist() { return fightque;  }
+	vector<fight*> getFightlist() { return fightque; }
 	ship* getWinner() { return winner; }
+
 private:
-	
+
 	int levels;
 	int ywidth;
 	int xwidth;
 
-	vector<fight> fightque;
+	vector<fight*> fightque;
+	vector<ship*> shipsInFights;
 	bool running;
 	bool finished;
 
@@ -58,8 +60,8 @@ private:
 
 	arenatile*** map;
 
-	ship * winner;
-	
+	ship* winner;
+
 };
 
 

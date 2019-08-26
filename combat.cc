@@ -1,14 +1,19 @@
 #include "combat.h"
 #include <iostream>
+#include <string>
 
 arena::arena(int snumber, int fnumber) {
 	shipnumber = snumber;
 	numOfFights = fnumber;
 }
 
-arena::arena(int snumber, int fnumber, vector<ship*>& f) {
+// not currently implmented
+arena::arena(int snumber, int fnumber, vector<int>& size, vector<ship*>& f) {
 	shipnumber = snumber;
 	numOfFights = fnumber;
+	shipsInFights = f;
+	createFight(size, f);
+
 }
 
 arena::~arena() {
@@ -20,7 +25,7 @@ arena::~arena() {
 	}
 
 	delete[] map;
-
+	clearAreanaFights();
 }
 
 void arena::printMap() {
@@ -40,43 +45,124 @@ void arena::printMap() {
 
 }
 
-void arena::genShips(int i) {
 
+ship* arena::createShip(std::string name) {
+	int n = 0;
+	int dim[3] = { 2,40,40 };
+	ship* output = new ship(n, name, dim);
+	return output;
 }
 
-ship* arena::createShip() {
+ship* arena::createShip(std::string name, int dim[3]) {
 
-	return NULL;
+	if (dim[0] < 0 || dim[1] < 0 || dim[2] < 0) {
+		std::cout << "wrong dims for ship construction" << std::endl;
+		return NULL;
+	}
+	else {
+		int n = 0;
+		ship* output = new ship(n, name, dim);
+		return output;
+	}
 }
 
-void arena::clearAreana() {
+void arena::clearAreanaMap() {
+	if (map != NULL) {
+		for (int f = 0; f < levels; f++) {
+			for (int y = 0; y < ywidth; y++) {
+				delete[] map[f][y];
+			}
+			delete[] map[f];
+		}
 
+		delete[] map;
+	}
 }
 
-void arena::createFight(vector<int> f) {
+void arena::clearAreanaFights() {
 
+	if (fightque.size() > 0) {
+		for (int i = fightque.size() - 1; i > -1; i--) {
+			fightque.pop_back();
+		}
+	}
 }
 
-void arena::removeFights(vector<int> f) {
+void arena::createFight (std::vector<int>& size, std::vector<ship*>& ships) {
+	fight* f;
+	std::vector<ship*> combatants;
+	int cursor = 0;
+	bool out = false;
+	for (int i = 0; i < numOfFights; i++) {
 
+		for (; cursor < size[i]; cursor++) {
+			if (cursor >= ships.size()) {
+				out = true;
+				break;
+			}
+			else {
+				combatants.push_back(ships[cursor]);
+			}
+		}
+		if (out) {
+			std::cout << "ran out of ships for the requred number for this fight" << endl;
+		}
+		else {
+			f = new fight(combatants);
+			fightque.push_back(f);
+			combatants.clear();
+		}
+	}
+}
+
+void arena::removeFight(int i) {
+	numOfFights--;
+	shipnumber -= fightque[i]->getNumOfFighters();
+	fightque.erase(fightque.begin() + i);
 }
 
 //void arena::printQue() {
 //
 //}
 
-void arena::swapFights() {
+void arena::swapFights(int f, int s) {
 
 }
 
-ship arena::runsim() {
+ship* arena::runsim() {
 
 }
 
-ship arena::mostWins() {
+ship* arena::mostWins() {
+	ship* output = NULL;
 
+	if (shipsInFights.size() != 0) {
+		int most = shipsInFights[0]->getFightsWon();
+		output = shipsInFights[0];
+		for (int i = 1; i < shipsInFights.size(); i++) {
+			if (most < shipsInFights[i]->getFightsWon()) {
+				most = shipsInFights[i]->getFightsWon();
+				output = shipsInFights[i];
+			}
+		}
+	}
+
+	return output;
 }
 
-ship arena::mostLosses() {
+ship* arena::mostLosses() {
+	ship* output = NULL;
 
+	if (shipsInFights.size() != 0) {
+		int loss = shipsInFights[0]->getFightsLost();
+		output = shipsInFights[0];
+		for (int i = 1; i < shipsInFights.size(); i++) {
+			if (loss < shipsInFights[i]->getFightsLost()) {
+				loss = shipsInFights[i]->getFightsLost();
+				output = shipsInFights[i];
+			}
+		}
+	}
+
+	return output;
 }
