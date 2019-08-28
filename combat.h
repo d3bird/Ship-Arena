@@ -13,19 +13,18 @@ using namespace std;
 class arena {
 public:
 
-	arena(int snumber, int fnumber);
-	arena(int snumber, int fnumber, vector<int>& size, vector<ship*>& f);
+	arena(int snumber, int fnumber, int dim[3]);
+	arena(int snumber, int fnumber, int dim[3], vector<int>& size, vector<ship*>& f);
 	~arena();
 
 	ship* createShip(std::string name);
 	ship* createShip(std::string name, int dim[3]);
-
+	void createMap();
 	void clearAreanaMap();
 	void clearAreanaFights();
 	void createFight(vector<int>& size, vector<ship*>& ships);
 	void removeFight(int i);
 
-	//void printQue();
 	void swapFights(int f, int s);
 
 	ship* runsim();
@@ -46,9 +45,11 @@ public:
 
 private:
 
+	void setup(vector<int>& size);
+
 	int levels;
-	int ywidth;
 	int xwidth;
+	int ywidth;
 
 	vector<fight*> fightque;
 	vector<ship*> shipsInFights;

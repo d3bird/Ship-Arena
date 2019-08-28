@@ -2,47 +2,61 @@
 #include <iostream>
 #include <string>
 
-arena::arena(int snumber, int fnumber) {
+arena::arena(int snumber, int fnumber, int dim[3]) {
 	shipnumber = snumber;
 	numOfFights = fnumber;
+	levels = dim[0];
+	xwidth = dim[1];
+	ywidth = dim[2];
+	//setup();
 }
 
 // not currently implmented
-arena::arena(int snumber, int fnumber, vector<int>& size, vector<ship*>& f) {
+arena::arena(int snumber, int fnumber, int dim[3], vector<int>& size, vector<ship*>& f) {
 	shipnumber = snumber;
 	numOfFights = fnumber;
 	shipsInFights = f;
-	createFight(size, f);
-
+	levels = dim[0];
+	xwidth = dim[1];
+	ywidth = dim[2];
+	setup(size);
 }
 
 arena::~arena() {
-	for (int f = 0; f < levels; f++) {
-		for (int y = 0; y < ywidth; y++) {
-			delete[] map[f][y];
+	if (map != NULL) {
+		for (int f = 0; f < levels; f++) {
+			for (int y = 0; y < ywidth; y++) {
+				delete[] map[f][y];
+			}
+			delete[] map[f];
 		}
-		delete[] map[f];
-	}
 
-	delete[] map;
+		delete[] map;
+	}
 	clearAreanaFights();
 }
 
+void arena::setup(vector<int>& size) {
+	createFight(size, shipsInFights);
+	createMap();
+}
+
 void arena::printMap() {
-	for (int f = 0; f < levels; f++) {
-		std::cout << std::endl;
-		std::cout << "----------levels number: " << f << "-------------" << std::endl;
-		std::cout << std::endl;
-		for (int y = 0; y < ywidth; y++) {
-			for (int x = 0; x < xwidth; x++) {
-
-				std::cout << map[f][y][x].getobj();
-
-			}
+	if (map != NULL) {
+		for (int f = 0; f < levels; f++) {
 			std::cout << std::endl;
+			std::cout << "----------levels number: " << f << "-------------" << std::endl;
+			std::cout << std::endl;
+			for (int y = 0; y < ywidth; y++) {
+				for (int x = 0; x < xwidth; x++) {
+
+					std::cout << map[f][y][x].getobj();
+
+				}
+				std::cout << std::endl;
+			}
 		}
 	}
-
 }
 
 
@@ -121,16 +135,41 @@ void arena::removeFight(int i) {
 	fightque.erase(fightque.begin() + i);
 }
 
-//void arena::printQue() {
-//
-//}
+
+void arena::createMap() {
+
+	map = new arenatile * *[levels];
+
+	for (int f = 0; f < levels; f++) {
+
+		map[f] = new arenatile * [ywidth]; // generating the rows
+
+		for (int i = 0; i < ywidth; i++) {// generating the collums
+			map[f][i] = new arenatile[xwidth];
+		}
+
+	}
+	for (int f = 0; f < levels; f++) {
+		for (int y = 0; y < ywidth; y++) {
+			for (int x = 0; x < xwidth; x++) {
+
+
+				map[f][y][x] = ".";
+
+			}
+		}
+	}
+
+}
 
 void arena::swapFights(int f, int s) {
-
+	std::swap(fightque[f], fightque[s]);
 }
 
 ship* arena::runsim() {
 
+
+	return mostWins();
 }
 
 ship* arena::mostWins() {
