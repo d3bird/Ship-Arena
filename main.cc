@@ -14,14 +14,14 @@ using namespace std;
 
 int main(){
 	console con;
-	//con.testShip();
+	con.testShip();
 
-	int snumber =2;
-	int fnumber= 1;
-	int dim[3] = { 1,100, 100 };
-	arena carn( snumber,  fnumber, dim);
-	carn.createMap();
-	carn.printMap();
+	//int snumber =2;
+	//int fnumber= 1;
+	//int dim[3] = { 1,100, 100 };
+	//arena carn( snumber,  fnumber, dim);
+	//carn.createMap();
+	//carn.printMap();
 
 	cout << "finished program" << endl;
 	return 0;

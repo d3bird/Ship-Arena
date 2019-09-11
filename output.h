@@ -73,7 +73,8 @@ void console::print(ship &test) {
 	testprint("ship print");
 	
 	test.printmap();
-	
+	test.prinArenaMap();
+	std::cout << std::endl;
 	std::cout << "name: " << test.getName() << std::endl;
 	std::cout << "thrust: " << test.getThrustspeed() << std::endl;
 	std::cout << "weapons: " << test.getweapons() << std::endl;
@@ -180,7 +181,6 @@ int console::testShip() {
 
 	tnode= new node(roominputs, false, "mix");
 	sections.push_back(tnode);
-
 
 	ship test(0, "test_ship", mapsize, sections);
 

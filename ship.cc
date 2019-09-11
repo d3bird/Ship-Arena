@@ -80,9 +80,17 @@ ship::~ship() {
 		}
 		delete[] map[f];
 	}
-	
 	delete[] map;
-	
+
+	//removing the arena ship icons
+	for (int f = 0; f < Afloors; f++) {
+		for (int y = 0; y < yAwidth; y++) {
+			delete[] Amap[f][y];
+		}
+		delete[] Amap[f];
+	}
+	delete[] Amap;
+
 	//removing the rooms
 
 	for (int i = sections.size()-1; i > -1; i--) {
@@ -236,9 +244,8 @@ void ship::genMap(int n) {
 	genblankmap();
 	convertToGrid(5, 5);
 	setMapStats();
+	generateArenaMap();
 	update();
-
-
 }
 
 void ship::convertToGrid(int rx, int ry) {
@@ -303,7 +310,7 @@ void ship::convertToGrid(int rx, int ry) {
 										cdf = cf;
 										cdx = cx + x;
 										cdy = cy + y;
-										cout << cdx << "," << cy + y << endl;
+										//cout << cdx << "," << cy + y << endl;
 									}
 
 								}
@@ -331,7 +338,7 @@ void ship::convertToGrid(int rx, int ry) {
 							roomsleft = false;
 						}
 						else {
-							cout << "adding room to room" << endl;
+							//cout << "adding room to room" << endl;
 							roominputs2 = new int[3];
 							roominputs2[0] = cx;
 							roominputs2[1] = cy;
@@ -489,6 +496,64 @@ void ship::setMapStats() {
 				}
 				
 				map[f][y][x].setVars(b, i, d);
+			}
+			//cout << endl;
+		}
+	}
+
+}
+
+void ship::generateArenaMap() {
+	xAwidth = xwidth/5;
+	yAwidth = ywidth / 5;
+	Afloors = floors;
+
+	Amap = new arenatile * *[Afloors];
+
+	for (int f = 0; f < Afloors; f++) {
+
+		Amap[f] = new arenatile * [ywidth]; // generating the rows
+
+		for (int i = 0; i < yAwidth; i++) {// generating the collums
+			Amap[f][i] = new arenatile[xAwidth];
+		}
+
+	}
+
+	for (int f = 0; f < Afloors; f++) {
+		for (int y = 0; y < yAwidth; y++) {
+			for (int x = 0; x < xAwidth; x++) {
+
+
+				Amap[f][y][x] = "X";
+
+			}
+		}
+	}
+
+}
+
+arenatile*** ship::getArenaMap() {
+	if (Amap == NULL) {
+		generateArenaMap();
+	}
+	
+	return Amap;
+}
+
+void ship::prinArenaMap() {
+
+	cout << "printing ship map icon" << endl;
+
+	for (int f = 0; f < floors; f++) {
+		cout << endl;
+		cout << "---------level number: " << f << "-------------" << endl;
+		cout << endl;
+		for (int y = 0; y < yAwidth; y++) {
+			for (int x = 0; x < xAwidth; x++) {
+
+				cout << Amap[f][y][x].getobj();
+
 			}
 			cout << endl;
 		}

@@ -22,6 +22,9 @@ public:
 
 	void inputFightResults(int i);
 
+	void generateArenaMap();
+	arenatile*** getArenaMap();
+
 	//var getters
 	int getThrustspeed() { return thrustspeed; }
 	int getweapons() { return weaponspower; }
@@ -58,10 +61,12 @@ public:
 	void genRooms(std::vector<node*>& r);
 	void genRooms(int num);
 	void printmap();
-	
+	void prinArenaMap();
+
 	std::vector<node*>& getRooms() { return sections; }
 
 private:
+
 	void convertToGrid(int rx, int ry);
 	void genblankmap();
 	void setMapStats();
@@ -70,6 +75,11 @@ private:
 	int floors;
 
 	shiptile*** map;
+
+	int xAwidth;
+	int yAwidth;
+	int Afloors;
+	arenatile*** Amap;
 
 	std::string name;
 	int fightswon;
