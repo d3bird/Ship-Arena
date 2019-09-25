@@ -504,33 +504,68 @@ void ship::setMapStats() {
 }
 
 void ship::generateArenaMap() {
-	xAwidth = xwidth/5;
-	yAwidth = ywidth / 5;
-	Afloors = floors;
 
-	Amap = new arenatile * *[Afloors];
+	if (map != NULL) {
 
-	for (int f = 0; f < Afloors; f++) {
+		xAwidth = xwidth / 5;
+		yAwidth = ywidth / 5;
+		Afloors = floors;
 
-		Amap[f] = new arenatile * [ywidth]; // generating the rows
+		Amap = new arenatile * *[Afloors];
 
-		for (int i = 0; i < yAwidth; i++) {// generating the collums
-			Amap[f][i] = new arenatile[xAwidth];
-		}
+		for (int f = 0; f < Afloors; f++) {
 
-	}
+			Amap[f] = new arenatile * [ywidth]; // generating the rows
 
-	for (int f = 0; f < Afloors; f++) {
-		for (int y = 0; y < yAwidth; y++) {
-			for (int x = 0; x < xAwidth; x++) {
-
-
-				Amap[f][y][x] = "X";
-
+			for (int i = 0; i < yAwidth; i++) {// generating the collums
+				Amap[f][i] = new arenatile[xAwidth];
 			}
-		}
-	}
 
+		}
+
+		int ycounter = 0;
+		int xcounter = 0;
+
+		int amount = 0;
+
+		int x = 0;
+		int y = 0;
+		for (int f = 0; f < Afloors; f++) {
+			
+			for (int yi = 0; yi < 6; yi++) {
+				for (int xi = 0; xi < 6; xi++) {
+					if (map[f][yi+y][xi+x].getobj() != " ") {
+						amount++;
+					}
+
+				}
+			}
+
+			if (amount >= 30) {
+				Amap[f][y][x] = "X";
+			}
+			else if (amount >= 10) {
+				Amap[f][y][x] = "/";
+			}
+			else {
+				Amap[f][y][x] = " ";
+			}
+			amount = 0;
+
+			y += 6;
+
+			if (y >= ywidth) {
+				y = 0;
+				x += 6;
+			}
+
+		}
+
+		
+	}
+	else {
+		cout << "the map has not been defined yet" << endl;
+	}
 }
 
 arenatile*** ship::getArenaMap() {
