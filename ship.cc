@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "ship.h"
+#include <iostream>
 
 //#include "output.h"
 using namespace std;
@@ -507,15 +508,18 @@ void ship::generateArenaMap() {
 
 	if (map != NULL) {
 
-		xAwidth = xwidth / 5;
-		yAwidth = ywidth / 5;
+		xAwidth = xwidth / 6;
+		yAwidth = ywidth / 6;
 		Afloors = floors;
 
+		std::cout << xAwidth << endl;
+		std::cout << yAwidth << endl;
+		std::cout << Afloors << endl;
 		Amap = new arenatile * *[Afloors];
 
 		for (int f = 0; f < Afloors; f++) {
 
-			Amap[f] = new arenatile * [ywidth]; // generating the rows
+			Amap[f] = new arenatile * [yAwidth]; // generating the rows
 
 			for (int i = 0; i < yAwidth; i++) {// generating the collums
 				Amap[f][i] = new arenatile[xAwidth];
@@ -523,45 +527,56 @@ void ship::generateArenaMap() {
 
 		}
 
-		int ycounter = 0;
-		int xcounter = 0;
 
 		int amount = 0;
 
-		int x = 0;
-		int y = 0;
+		int xc = 0;// for the small map
+		int yc = 0;
+
+		int x = 0;//for the big map
+		int y = 0;//
+
+		bool running = true;
+
 		for (int f = 0; f < Afloors; f++) {
-			
-			for (int yi = 0; yi < 6; yi++) {
-				for (int xi = 0; xi < 6; xi++) {
-					if (map[f][yi+y][xi+x].getobj() != " ") {
-						amount++;
+			running = true;
+			y = 0;
+			x = 0;
+			yc = 0;
+			xc = 0;
+			while (running) {
+
+				for (int i = 0; i < 6; i++) {
+					for (int ix = 0; ix < 6; ix++) {
+						if (map[f][y + i][x + ix].getobj() != " ") {
+							amount++;
+						}
+
 					}
 
 				}
+				//std::cout << amount << std::endl;
+				if (amount >= 30) {
+					Amap[f][yc][xc] = "X";
+				}
+				else if (amount >= 10) {
+					Amap[f][yc][xc] = "/";
+				}
+				else {
+					Amap[f][yc][xc] = "O";
+				}
+				amount = 0;
+				yc++;
+				//std::cout << yc << " " << yAwidth << std::endl;
+				if (yc >= yAwidth) {
+					yc = 0;
+					xc++;
+					if (xc >= xAwidth) {
+						running = false;
+					}
+				}
 			}
-
-			if (amount >= 30) {
-				Amap[f][y][x] = "X";
-			}
-			else if (amount >= 10) {
-				Amap[f][y][x] = "/";
-			}
-			else {
-				Amap[f][y][x] = " ";
-			}
-			amount = 0;
-
-			y += 6;
-
-			if (y >= ywidth) {
-				y = 0;
-				x += 6;
-			}
-
 		}
-
-		
 	}
 	else {
 		cout << "the map has not been defined yet" << endl;

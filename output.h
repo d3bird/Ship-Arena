@@ -13,23 +13,26 @@
 class console {
 public:
 
-	console(){}
+	console() {}
 
 
 
-void testprint(string i);
-void endprint();
+	void testprint(string i);
+	void endprint();
 
-void print(node *test);
-void print(std::vector<node*> &input);
-void print(ship & test);
-void nline();
+	void print(node* test);
+	void print(std::vector<node*>& input);
+	void print(ship& test);
+	void nline();
+	void print(string i);
 
-void printFight(fight* f);
-void printArena(arena& a);
+	void printFight(fight* f);
+	void printArena(arena& a);
 
-int testNode();
-int testShip();
+	void printShipMapTest(ship& test);
+
+	int testNode();
+	int testShip(bool map);
 
 
 };
@@ -66,6 +69,15 @@ void console::print(node * test) {
 
 	endprint();
 	nline();
+}
+
+void console::printShipMapTest(ship& test) {
+	print("printing the map of the ship");
+
+	test.printmap();
+	nline();
+	test.prinArenaMap();
+
 }
 
 void console::print(ship &test) {
@@ -115,6 +127,10 @@ void console::print(vector<node*>& input) {
 	}
 }
 
+void console::print(string i) {
+	cout << i << endl;
+}
+
 void console::nline() {
 	std::cout << std::endl;
 }
@@ -129,7 +145,7 @@ int console::testNode() {
 	return 0;
 }
 
-int console::testShip() {
+int console::testShip(bool map) {
 	int thrust = 100;
 	int weapons = 200;
 	int weight = 400;
@@ -159,7 +175,7 @@ int console::testShip() {
 
 	std::vector<node*> sections;
 
-	node * tnode;
+	node* tnode;
 
 	roominputs[0] = 10;//weight
 	roominputs[1] = 100;//weapons
@@ -179,13 +195,19 @@ int console::testShip() {
 	roominputs[1] = 30;//weapons
 	roominputs[2] = 30;//engins
 
-	tnode= new node(roominputs, false, "mix");
+	tnode = new node(roominputs, false, "mix");
 	sections.push_back(tnode);
 
 	ship test(0, "test_ship", mapsize, sections);
 
-	print(test);
 
+	if (map) {
+		printShipMapTest(test);
+	}
+	else {
+		print(test);
+
+	}
 	return 0;
 }
 
