@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Shiptile.h"
 #include <string>
 
 using namespace std;
@@ -8,7 +9,7 @@ class node {
 
 public:
 
-	node(int a[12], bool l, string n);
+	node(int a[13], bool l, string n);
 	~node();
 	int getWeight() { return weight; }
 	int getWeapons();//{return weapons;
@@ -40,6 +41,8 @@ public:
 	void setloc(int* i) { loc = i; }
 	void setDloc(int* i) { dloc = i; }
 
+	void setRoomType(int i);
+
 	bool isBlank() { return blank; }
 	bool isEngroom() { return engroom; }
 	bool ispowerRoom() { return powerRoom; }
@@ -48,12 +51,22 @@ public:
 	int getRoomvarient() { return  roomvarient; }
 
 	//should change based on room inheritance
-	string** getroomlayout(int rx, int ry);// the map of the room
-	int getRatio() { return 0; }// amount that the ratios are increase (changes for room)
+
+	void designateRoom(int i);
+	shiptile** getMap() { return map; }
+	int getRatio() { return 1; }// amount that the ratios are increase (changes for room)
+
+	int getXinside() { return xinsideSize; }
+	int getYinside() { return yinsideSize; }
+
+	void setSize(int x, int y);
 
 private:
 	//location on the ship
-	int* loc;
+	int *loc;
+
+	int xinsideSize;
+	int yinsideSize;
 
 	int xsize;
 	int ysize;
@@ -78,6 +91,8 @@ private:
 	bool understaffed;
 
 	string name;
+
+	shiptile** map;
 
 	bool blank;
 	bool engroom;

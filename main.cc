@@ -14,7 +14,7 @@ using namespace std;
 
 int main(){
 	console con;
-	con.testShip(true);
+	con.testShip(false);
 
 	//int snumber =2;
 	//int fnumber= 1;

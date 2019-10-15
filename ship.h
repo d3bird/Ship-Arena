@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "node.h"
+#include "Shiptile.h"
 #include "maptile.h"
 
 class ship {
@@ -58,8 +59,9 @@ public:
 	//dealing with ship layout generation
 
 	void genMap(int n);
-	void genRooms(std::vector<node*>& r);
+	void genRooms();
 	void genRooms(int num);
+	void addRoomTomap(int index);
 	void printmap();
 	void prinArenaMap();
 

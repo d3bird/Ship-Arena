@@ -245,7 +245,7 @@ void ship::genMap(int n) {
 	genblankmap();
 	convertToGrid(5, 5);
 	setMapStats();
-	generateArenaMap();
+	genRooms();
 	update();
 }
 
@@ -260,7 +260,7 @@ void ship::convertToGrid(int rx, int ry) {
 	int cdy = -1;
 	int roomcusor = 0;
 	node* tempRoom;
-	int roominputs[12];
+	int roominputs[13];
 	int * roominputs2;
 	bool roomswitch = true;
 	bool running = true;
@@ -333,13 +333,14 @@ void ship::convertToGrid(int rx, int ry) {
 					}
 
 					//adds the room to the list of rooms
+					if (roomcusor >= sections.size()) {
+						roomsleft = false;
+
+					}
 
 					if (!roomsatend&&roomsleft) {
-						if (roomcusor >= sections.size()) {
-							roomsleft = false;
-						}
-						else {
-							//cout << "adding room to room" << endl;
+
+							cout << "adding room to room" << endl;
 							roominputs2 = new int[3];
 							roominputs2[0] = cx;
 							roominputs2[1] = cy;
@@ -350,11 +351,12 @@ void ship::convertToGrid(int rx, int ry) {
 							roominputs2[1] = cdy;
 							roominputs2[2] = cdf;
 							sections[roomcusor]->setDloc(roominputs2);
+							sections[roomcusor]->setSize(rx, ry);
 							roomcusor++;
-						}
+						
 					}
 					else {
-
+						//cout << " making a blank room" << endl;
 						roominputs[0] = 10;//weight
 						roominputs[1] = 0;//weapons
 						roominputs[2] = 0;//engins
@@ -367,13 +369,14 @@ void ship::convertToGrid(int rx, int ry) {
 						roominputs[9] = cdx;
 						roominputs[10] = cdy;
 						roominputs[11] = cdf;
-
+						roominputs[12] = -1;
 						tempRoom = new node(roominputs, false, "blankroom");
 						sections.push_back(tempRoom);
 
 						blankrooms++;
 
 					}
+
 
 					numrooms++;
 					
@@ -512,9 +515,9 @@ void ship::generateArenaMap() {
 		yAwidth = ywidth / 6;
 		Afloors = floors;
 
-		std::cout << xAwidth << endl;
-		std::cout << yAwidth << endl;
-		std::cout << Afloors << endl;
+		//std::cout << xAwidth << endl;
+		//std::cout << yAwidth << endl;
+		//std::cout << Afloors << endl;
 		Amap = new arenatile * *[Afloors];
 
 		for (int f = 0; f < Afloors; f++) {
@@ -611,9 +614,63 @@ void ship::prinArenaMap() {
 
 }
 
-void ship::genRooms(std::vector<node*>& r) {
-	sections = r;
+void ship::genRooms() {
+	//std::cout << sections.size() << std::endl;
+	for (int i = 0; i < sections.size(); i++) {
+		addRoomTomap(i);
+	}
 }
+
+//this function rewrites a room to the map
+void ship::addRoomTomap(int index) {
+	int xi = sections[index]->getXinside();
+	int yi = sections[index]->getYinside();
+	int* loc = sections[index]->getloc();
+	//std::cout << "redrawling room at: " << loc[0] << " " << loc[1] << " " << loc[2] << std::endl;
+
+	if (sections[index]->isEngroom()) {
+		//std::cout << "making a engine room" << std::endl;
+		for (int i = 0; i < yi; i++) {
+			for (int q = 0; q < xi; q++) {
+				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "e";
+			}
+		}
+	}
+	else if (sections[index]->ispowerRoom()) {
+		//std::cout << "making a power room" << std::endl;
+		for (int i = 0; i < yi; i++) {
+			for (int q = 0; q < xi; q++) {
+				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "p";
+			}
+		}
+	}
+	else if (sections[index]->isweaponsRoom()) {
+		//std::cout << "making a weapons room" << std::endl;
+		for (int i = 0; i < yi; i++) {
+			for (int q = 0; q < xi; q++) {
+				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "w";
+			}
+		}
+	}
+	else if (sections[index]->ismiscRoom()) {
+		//std::cout << "making a misc room" << std::endl;
+		for (int i = 0; i < yi; i++) {
+			for (int q = 0; q < xi; q++) {
+				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "m";
+			}
+		}
+	}
+	else {
+		//std::cout << "making a blank room" << std::endl;
+		for (int i = 0; i < yi; i++) {
+			for (int q = 0; q < xi; q++) {
+				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "B";
+			}
+		}
+	}
+
+}
+
 
 void ship::genRooms(int num) {
 

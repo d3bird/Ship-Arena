@@ -159,7 +159,7 @@ int console::testShip(bool map) {
 
 	int mapsize[] = { x,y,f };
 
-	int roominputs[12];
+	int roominputs[13];
 	roominputs[0] = 10;//weight
 	roominputs[1] = 0;//weapons
 	roominputs[2] = 0;//engins
@@ -180,21 +180,21 @@ int console::testShip(bool map) {
 	roominputs[0] = 10;//weight
 	roominputs[1] = 100;//weapons
 	roominputs[2] = 0;//engins
-
+	roominputs[12] = 2;
 	tnode = new node(roominputs, false, "Cannon Room");
 	sections.push_back(tnode);
 
 	roominputs[0] = 10;//weight
 	roominputs[1] = 0;//weapons
 	roominputs[2] = 100;//engins
-
+	roominputs[12] = 0;
 	tnode = new node(roominputs, false, "engine");
 	sections.push_back(tnode);
 
 	roominputs[0] = 10;//weight
 	roominputs[1] = 30;//weapons
 	roominputs[2] = 30;//engins
-
+	roominputs[12] = 3;
 	tnode = new node(roominputs, false, "mix");
 	sections.push_back(tnode);
 
