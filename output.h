@@ -198,6 +198,14 @@ int console::testShip(bool map) {
 	tnode = new node(roominputs, false, "mix");
 	sections.push_back(tnode);
 
+	roominputs[0] = 10;//weight
+	roominputs[1] = 30;//weapons
+	roominputs[2] = 30;//engins
+	roominputs[12] = 1;//room type
+	tnode = new node(roominputs, false, "power");
+	sections.push_back(tnode);
+
+
 	ship test(0, "test_ship", mapsize, sections);
 
 

@@ -667,9 +667,55 @@ void ship::addRoomTomap(int index) {
 	}
 	else if (sections[index]->ispowerRoom()) {
 		//std::cout << "making a power room" << std::endl;
+		int counter = 0;
 		for (int i = 0; i < yi; i++) {
 			for (int q = 0; q < xi; q++) {
-				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "p";
+				switch (side) {
+				case 0:
+				case 1:
+					if (i == 0 || i== yi -1) {
+						if (counter == 0) {
+							map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "C";
+							counter++;
+						}
+						else if (counter == 1) {
+							map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "=";
+							counter++;
+						}
+						else {
+							map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "O";
+							counter = 0;
+						}
+					}
+					else {
+						map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = ".";
+					}
+					break;
+				case 2:
+				case 3:
+					if (q == 0 ||q == xi - 1) {
+						if (counter == 0) {
+							map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "C";
+							counter++;
+						}
+						else if (counter == 1) {
+							map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "=";
+							counter++;
+						}
+						else {
+							map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "O";
+							counter = 0;
+						}
+					}
+					else {
+						map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = ".";
+					}
+
+					break;
+				default:
+					map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = ".";
+
+				}
 			}
 		}
 	}
@@ -714,7 +760,7 @@ void ship::addRoomTomap(int index) {
 			}
 		}
 	}
-	else if (sections[index]->ismiscRoom()) {// for special rooms
+	else if (sections[index]->ismiscRoom()) {// for special rooms, this will be updated at a latter date
 		//std::cout << "making a misc room" << std::endl;
 		for (int i = 0; i < yi; i++) {
 			for (int q = 0; q < xi; q++) {
