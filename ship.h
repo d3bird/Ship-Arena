@@ -67,11 +67,13 @@ public:
 
 	std::vector<node*>& getRooms() { return sections; }
 
-private:
 
+private:
+	int getdoorside(int* d, int* l, int* size);
 	void convertToGrid(int rx, int ry);
 	void genblankmap();
 	void setMapStats();
+
 	int xwidth;
 	int ywidth;
 	int floors;

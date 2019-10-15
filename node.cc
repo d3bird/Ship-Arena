@@ -47,11 +47,17 @@ node::node(int a[13], bool l, string n) {
 	xinsideSize = xsize - 2;
 	yinsideSize = ysize - 2;
 	//genRoomLayout();
+	size = new int[4];//set the size output
+	size[0] = xsize;
+	size[1] = ysize;
+	size[2] = xinsideSize;
+	size[3] = yinsideSize;
 }
 
 node::~node() {
 	delete[] loc;
 	delete[] dloc;
+	delete[] size;
 }
 
 int node::getWeapons(){
@@ -182,6 +188,9 @@ void node::setRoomType(int i) {
 	 }
 }
 
+int* node::getsize() {
+	return size;
+}
 
 void node::setSize(int x, int y) {
 	xsize = x;
@@ -189,4 +198,9 @@ void node::setSize(int x, int y) {
 
 	xinsideSize = xsize - 2;
 	yinsideSize = ysize - 2;
+
+	size[0] = xsize;
+	size[1] = ysize;
+	size[2] = xinsideSize;
+	size[3] = yinsideSize;
 }

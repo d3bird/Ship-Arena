@@ -621,18 +621,47 @@ void ship::genRooms() {
 	}
 }
 
+int ship::getdoorside(int* d, int* l, int* size) {
+	int output = -1;
+
+	if (d[2] == l[2]) {// left half
+		output = 0;
+	}
+	else if (d[2] == l[2] + size[0]) {// right half
+		output = 1;
+	}
+	else if (d[1] == l[1]) {// top half
+		output = 2;
+	}
+	else if (d[1] == l[1] + size[1]) {// bottom half
+		output = 3;
+	}
+
+	return output;
+}
+
 //this function rewrites a room to the map
 void ship::addRoomTomap(int index) {
 	int xi = sections[index]->getXinside();
 	int yi = sections[index]->getYinside();
 	int* loc = sections[index]->getloc();
+	int* dloc = sections[index]->getDloc();
+	int side = getdoorside(dloc, loc, sections[index]->getsize());
 	//std::cout << "redrawling room at: " << loc[0] << " " << loc[1] << " " << loc[2] << std::endl;
 
 	if (sections[index]->isEngroom()) {
 		//std::cout << "making a engine room" << std::endl;
 		for (int i = 0; i < yi; i++) {
 			for (int q = 0; q < xi; q++) {
-				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "e";
+				if ((i == 0 && q == 0) ||  (i == yi - 1 && q == xi - 1)) {// the corners of the room
+					map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "O";
+				}
+				else if (i == yi - 1 && q == 0) {
+					map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "C";
+				}
+				else {
+					map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = ".";
+				}
 			}
 		}
 	}
@@ -664,7 +693,7 @@ void ship::addRoomTomap(int index) {
 		//std::cout << "making a blank room" << std::endl;
 		for (int i = 0; i < yi; i++) {
 			for (int q = 0; q < xi; q++) {
-				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = "B";
+				map[loc[0]][loc[1] + 1 + i][loc[2] + 1 + q] = ".";
 			}
 		}
 	}

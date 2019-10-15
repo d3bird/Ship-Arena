@@ -35,6 +35,7 @@ public:
 	void damage(int i);
 	void repair(int i);
 
+
 	int* getloc() { return loc; }
 	int* getDloc() { return dloc; }
 	
@@ -60,6 +61,7 @@ public:
 	int getYinside() { return yinsideSize; }
 
 	void setSize(int x, int y);
+	int* getsize();
 
 private:
 	//location on the ship
@@ -70,6 +72,8 @@ private:
 
 	int xsize;
 	int ysize;
+
+	int* size;
 	// location to the door to the room
 	int* dloc;
 
