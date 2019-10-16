@@ -6,6 +6,7 @@
 #include "node.h"
 #include "ship.h"
 #include "combat.h"
+#include "gui.h"
 
 static console con;
 
@@ -14,7 +15,7 @@ using namespace std;
 
 int main(){
 	console con;
-	con.testShip(false);
+	//con.testShip(false);
 
 	//int snumber =2;
 	//int fnumber= 1;
@@ -22,6 +23,11 @@ int main(){
 	//arena carn( snumber,  fnumber, dim);
 	//carn.createMap();
 	//carn.printMap();
+
+
+	gui con_gui(true);
+
+
 
 	cout << "finished program" << endl;
 	return 0;
