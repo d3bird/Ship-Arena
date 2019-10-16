@@ -6,7 +6,7 @@
 #include "node.h"
 #include "Shiptile.h"
 #include "maptile.h"
-
+#include "arenatile.h"
 class ship {
 
 public:
@@ -52,8 +52,9 @@ public:
 	int getRoomsPcol() { return roomsPcol; }
 	int getRoomNumber() { return numrooms; }
 	int getBlankRoomNumber() { return blankrooms; }
-	void moveLifeForms(int from, int to, int amnt);
 
+	//update functions
+	void moveLifeForms(int from, int to, int amnt);
 	void update();
 
 	//dealing with ship layout generation
@@ -64,6 +65,7 @@ public:
 	void addRoomTomap(int index);
 	void printmap();
 	void prinArenaMap();
+	void addRoom(node*, int* dest);
 
 	std::vector<node*>& getRooms() { return sections; }
 

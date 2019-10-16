@@ -83,6 +83,7 @@ ship::~ship() {
 	}
 	delete[] map;
 
+	
 	//removing the arena ship icons
 	for (int f = 0; f < Afloors; f++) {
 		for (int y = 0; y < yAwidth; y++) {
@@ -91,7 +92,7 @@ ship::~ship() {
 		delete[] Amap[f];
 	}
 	delete[] Amap;
-
+	
 	//removing the rooms
 
 	for (int i = sections.size()-1; i > -1; i--) {
@@ -613,6 +614,7 @@ void ship::prinArenaMap() {
 	}
 
 }
+
 
 void ship::genRooms() {
 	//std::cout << sections.size() << std::endl;

@@ -6,6 +6,7 @@
 //#include "maptile.h"
 #include "ship.h"
 #include "fight.h"
+#include "arenatile.h"
 
 using namespace std;
 
