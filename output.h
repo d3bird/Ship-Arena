@@ -37,6 +37,7 @@ public:
 	void print(node* test);
 	void print(std::vector<node*>& input);
 	void print(ship& test);
+	void print(ship* test);
 	void nline();
 	void print(string i);
 

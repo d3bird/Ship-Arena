@@ -1,8 +1,5 @@
 #include "output.h"
 
-
-
-
 void console::testprint(string i) {
 	std::cout << "----------------" << i << "----------------" << std::endl;
 }
@@ -85,6 +82,45 @@ void console::print(ship& test) {
 	endprint();
 }
 
+
+void console::print(ship* test) {
+
+	testprint("ship print");
+
+	test->printmap();
+	test->prinArenaMap();
+	std::cout << std::endl;
+	std::cout << "name: " << test->getName() << std::endl;
+	std::cout << "thrust: " << test->getThrustspeed() << std::endl;
+	std::cout << "weapons: " << test->getweapons() << std::endl;
+	std::cout << "weight: " << test->getTotalweight() << std::endl;
+	std::cout << "fights won: " << test->getFightsWon() << std::endl;
+	std::cout << "fights lost: " << test->getFightsLost() << std::endl;
+	std::cout << "W streak: " << test->getWinStreak() << std::endl;
+	std::cout << "L streak: " << test->getLossStreak() << std::endl;
+	std::cout << "alive: " << test->isAlive() << std::endl;
+	std::cout << "breached: " << test->isBreach() << std::endl;
+	std::cout << "oxygen lvls: " << test->getOxygen() << std::endl;
+	std::cout << "life forms: " << test->numLivingForms() << std::endl;
+	std::cout << "efficency: " << test->getEfficency() << std::endl;
+	nline();
+	std::cout << "fuel ratio    1:" << test->getRfuel() << std::endl;
+	std::cout << "weapons ratio 1:" << test->getRweapons() << std::endl;
+	std::cout << "power ratio   1:" << test->getRpower() << std::endl;
+	nline();
+	std::cout << "rooms per col: " << test->getRoomsPcol() << std::endl;
+	std::cout << "rooms per row: " << test->getRoomsProw() << std::endl;
+	nline();
+	std::cout << "number of rooms: " << test->getRoomNumber() << std::endl;
+	std::cout << "number of blank rooms: " << test->getBlankRoomNumber() << std::endl;
+
+	print(test->getRooms());
+
+	endprint();
+	std::cout << std::endl;
+
+	endprint();
+}
 
 void console::print(vector<node*>& input) {
 
