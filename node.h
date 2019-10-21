@@ -27,9 +27,16 @@ public:
 
 	node(int a[13], bool l, string n);
 	~node();
+
+	void operator =(node other);
+
 	int getWeight() { return weight; }
 	int getWeapons();//{return weapons;
 	int getThrust();//{return engines;
+
+	//these two getters get the vals with modifications from room damages etc
+	int getEnginesUn() { return engines; }
+	int getweaponsUn() { return weapons; }
 
 	bool reqLifeforms() { return reqLife; }//does it need life
 	int getReqForms() { return reqforms; }// how many life forms are needed
@@ -76,8 +83,13 @@ public:
 	int getXinside() { return xinsideSize; }
 	int getYinside() { return yinsideSize; }
 
+	int getXsize() { return xsize; }
+	int getYsize() { return ysize; }
+
 	void setSize(int x, int y);
 	int* getsize();
+
+	int getMaxWeight() { return maxWeight; }
 
 private:
 	//location on the ship

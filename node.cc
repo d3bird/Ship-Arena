@@ -60,6 +60,58 @@ node::~node() {
 	delete[] size;
 }
 
+void node::operator =(node other) {
+
+	delete[] loc;
+	loc = NULL;
+	loc = other.getloc();
+
+	xinsideSize = other.getXinside();
+	yinsideSize = other.getYinside();
+
+	xsize = other.getXsize();
+	ysize = other.getYsize();
+
+	delete[] size;
+	size = NULL;
+
+	size = other.getsize();
+
+	delete[] dloc;
+	dloc = NULL;
+	dloc = other.getDloc();
+
+	breached = other.isbreached();
+	breachsize = other.getBreachSize();
+
+	weight = other.getWeight();
+	maxWeight = other.getMaxWeight();
+	weapons = other.getweaponsUn();
+	engines = other.getEnginesUn();
+
+	reqLife = other.reqLifeforms();//does it need life
+	reqforms = other.getReqForms();// how many life forms are needed
+	lifeforms = other.getLifeForms();// the number of current lifeforms in node
+	online = other.isonline();
+	damaged = other.isDamaged();
+	destoried = other.isDestoried();
+
+	understaffed = other.isUnderstaffed();
+
+	name = other.getName();
+
+	//shiptile** map = other.getMap();//potentail mem leak if the old map is not cleared
+
+	blank = other.isBlank();
+	engroom = other.isEngroom();
+	powerRoom = other.ispowerRoom();
+	weaponsRoom = other.isweaponsRoom();
+	miscRoom = other.ismiscRoom();
+
+	roomvarient = other.getRoomvarient();
+
+}
+
 int node::getWeapons(){
 	if(destoried){
 		return 0;
@@ -204,3 +256,4 @@ void node::setSize(int x, int y) {
 	size[2] = xinsideSize;
 	size[3] = yinsideSize;
 }
+
