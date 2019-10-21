@@ -91,12 +91,22 @@ void gui::run() {
 				break;
 			case 1:
 				std::cout << "create new room" << std::endl;
+
+
 				break;
 			case 2:
 				std::cout << "list all current rooms" << std::endl;
+				if (working != NULL) {
+					con->print(working->getRooms());
+				}
+				else {
+					std::cout << "there is no current ship in storage" << std::endl;
+				}
 				break;
 			case 3:
 				std::cout << "load/modify a room" << std::endl;
+
+
 				break;
 			case 4:
 				std::cout << "display ship map" << std::endl;
