@@ -1,6 +1,23 @@
+//******************************************************************
+//                                                                  
+//  Class: gui
+//                                                                  
+//  Purpose:  ...
+//            
+//  Functions:
+//           Constructors
+//				...
+//           setters
+//				...
+//           getters
+//				...
+//  
+//******************************************************************
+
 #pragma once
 
 #include <vector>
+#include <iostream>
 #include "ship.h"
 #include "node.h"
 #include "maptile.h"
@@ -13,8 +30,8 @@ public:
 	gui(bool i);
 	~gui();
 
-	void createRoom();
-	
+	void run();
+	void printCMenu();
 
 	//getters and setters
 
@@ -28,16 +45,11 @@ public:
 
 private:
 
-	void printCMenu();
-	void createRoomC();
-	void choice(int i);
-
 	bool term;
 	console* con;
 
 	node* room;
 	ship* working;
-	maptile*** shipmap;
 
 
 };

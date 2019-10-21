@@ -1,3 +1,18 @@
+//******************************************************************* 
+//                                                                    
+//  Program:     Ship Arena                                      
+//                                                                     
+//  Author:      Scott Crawford
+//  Email:       ...
+//                                                                    
+// 
+//                                                                    
+//  Description: ...                  
+//                                                                    
+//  Date:        ...
+//                                                                    
+//*******************************************************************
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -26,7 +41,7 @@ int main(){
 
 
 	gui con_gui(true);
-
+	con_gui.run();
 
 
 	cout << "finished program" << endl;
