@@ -5,6 +5,7 @@ gui::gui() {
 	term = false;
 	room = NULL;
 	working = NULL;
+	con = new console();
 }
 
 gui::gui(bool i) {
@@ -89,22 +90,29 @@ void gui::run() {
 
 				break;
 			case 1:
-				std::cout << "menu choice 1" << std::endl;
+				std::cout << "create new room" << std::endl;
 				break;
 			case 2:
-				std::cout << "menu choice 2" << std::endl;
+				std::cout << "list all current rooms" << std::endl;
 				break;
 			case 3:
-				std::cout << "menu choice 3" << std::endl;
+				std::cout << "load/modify a room" << std::endl;
 				break;
 			case 4:
-				std::cout << "menu choice 4" << std::endl;
+				std::cout << "display ship map" << std::endl;
+				if (working != NULL) {
+					con->print(working);
+				}
+				else {
+					std::cout << "there is no current ship in storage" << std::endl;
+				}
+				
 				break;
 			case 5:
 				std::cout << "menu choice 5" << std::endl;
 				break;
 			case 6:
-				std::cout << "menu choice 6" << std::endl;
+				std::cout << "exit editor" << std::endl;
 				running = false;
 				break;
 			default:
