@@ -142,6 +142,10 @@ void gui::run() {
 
 
 bool gui::setWorkingRoom(int f, int y, int x) {
+	if (room != NULL) {
+		delete room;
+		room = NULL;
+	}
 	std::vector<node*> shiprooms = working->getRooms();
 	int* temp;
 	for (int i = 0; i < shiprooms.size(); i++) {
@@ -155,20 +159,6 @@ bool gui::setWorkingRoom(int f, int y, int x) {
 }
 
 
- std::vector<int*> gui::getOpenspots() {
-	std::vector<node*> shiprooms = working->getRooms();
-	int* temp;
-	std::vector<int*> output;
-
-	for (int i = 0; i < shiprooms.size(); i++) {
-		if (shiprooms[i]->isBlank()) {
-			temp = shiprooms[i]->getloc();
-			output.push_back(temp);
-		}
-	}
-
-	return output;
-}
 
 void gui::printCMenu() {
 

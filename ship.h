@@ -85,6 +85,7 @@ public:
 
 	std::vector<node*>& getRooms() { return sections; }
 
+	std::vector<int*> getOpenspots();
 
 private:
 	int getdoorside(int* d, int* l, int* size);

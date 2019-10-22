@@ -781,6 +781,25 @@ void ship::addRoomTomap(int index) {
 
 }
 
+std::vector<int*> ship::getOpenspots() {
+	int* temp;
+	std::vector<int*> output;
+
+	for (int i = 0; i < sections.size(); i++) {
+		if (sections[i]->isBlank()) {
+			temp = sections[i]->getloc();
+			output.push_back(temp);
+		}
+	}
+
+	return output;
+}
+
+void ship::addRoom(node*, int* dest) {
+
+
+}
+
 
 void ship::genRooms(int num) {
 
